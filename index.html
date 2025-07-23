@@ -54,10 +54,38 @@
         }
 
         .quote {
-            color: rgb(231, 145, 7);
+            color: #ffae42;
             text-align: center;
             font-size: 24px;
-            margin: 60px 40px 0 40px;
+            margin: 60px auto 0 auto;
+            padding: 20px 30px;
+            border: 2px solid #ffae42;
+            border-radius: 12px;
+            width: fit-content;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .quote:hover {
+            box-shadow: 0 0 15px 5px rgba(255, 174, 66, 0.6),
+                        0 0 30px 10px rgba(255, 106, 0, 0.5),
+                        inset 0 0 20px rgba(255, 174, 66, 0.2);
+            transform: scale(1.03);
+            background: radial-gradient(ellipse at center, rgba(255,106,0,0.1) 0%, transparent 70%);
+            animation: glowPulse 1.6s infinite alternate;
+        }
+
+        @keyframes glowPulse {
+            from {
+                box-shadow: 0 0 15px 5px rgba(97, 244, 139, 0.4),
+                            0 0 30px 10px rgba(255, 106, 0, 0.3),
+                            inset 0 0 10px rgba(255, 174, 66, 0.1);
+            }
+            to {
+                box-shadow: 0 0 25px 10px rgba(255, 174, 66, 0.7),
+                            0 0 40px 20px rgba(255, 106, 0, 0.5),
+                            inset 0 0 25px rgba(255, 174, 66, 0.3);
+            }
         }
     </style>
 </head>
@@ -77,6 +105,5 @@
     <h3 class="quote special-font">
         If cricket ever felt like the one that got away, come home. We saved you a place on the pitch.
     </h3>
-
 </body>
 </html>
