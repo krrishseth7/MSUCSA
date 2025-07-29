@@ -1,1 +1,65 @@
 <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Team</title>
+    <link rel="icon" type="image/png" href="Symbol.png">
+    <style>
+        body {
+            background-color: black;
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: white;
+        }
+
+        .card {
+            background: linear-gradient(to bottom right, #111, #222);
+            border: 3px solid rgb(255, 255, 252);
+            border-radius: 16px;
+            width: 240px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        .card img {
+            width: 120px;
+            height: 140px;
+            border-radius: 10px;
+            object-fit: cover;
+            margin-bottom: 12px;
+        }
+
+        .card h2 {
+            margin: 10px 0 4px;
+            font-size: 20px;
+            color: rgb(255, 255, 255);
+        }
+
+        .card p.quote {
+            font-size: 14px;
+            color: #ccc;
+            margin-top: 12px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <img src="/MSUCSA/Photos/Krrish.jpeg" alt="Team Member">
+        <h2>Krrish Seth</h2>
+        <h5> All-Rounder </h5>
+        <p class="quote">"If there's even 1% chance. FIGHT!"</p>
+    </div>
+</body>
+</html>
