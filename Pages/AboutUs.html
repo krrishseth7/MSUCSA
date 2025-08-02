@@ -11,12 +11,18 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
+      flex-direction: column;
+      font-family: Arial, sans-serif;
+      color: white;
     }
 
     .helmet-container {
       position: relative;
       width: 300px;
       height: auto;
+      cursor: pointer;
+      transition: transform 1s;
+      text-align: center;
     }
 
     .helmet-container img {
@@ -33,11 +39,69 @@
               drop-shadow(0 0 20px #e040fb) 
               drop-shadow(0 0 40px #b388ff);
     }
+
+    .click-text {
+      margin-top: 8px;
+      font-size: 14px;
+      color: #e0b3ff;
+      animation: pulse 1.5s infinite;
+      text-shadow: 0 0 5px #ff00ff;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .spin {
+      animation: spin 1.2s ease-in-out forwards;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotateY(0deg);
+      }
+      100% {
+        transform: rotateY(360deg);
+      }
+    }
+
+    .about {
+      opacity: 0;
+      margin-top: 20px;
+      max-width: 600px;
+      text-align: center;
+      transition: opacity 0.8s ease-in-out;
+    }
+
+    .about.visible {
+      opacity: 1;
+    }
   </style>
 </head>
 <body>
-  <div class="helmet-container">
+  <div class="helmet-container" id="helmet">
     <img src="/MSUCSA/pngfind.com-molon-labe-png-5712557.png" alt="Spartan Helmet">
+    <div class="click-text">Click Me</div>
   </div>
+
+  <div class="about" id="about">
+    <h2>About Us</h2>
+    <p>This is the warrior spirit of our community. A place where strength meets strategy, and tradition merges with innovation. We stand for excellence, unity, and relentless pursuit of greatness.</p>
+  </div>
+
+  <script>
+    const helmet = document.getElementById('helmet');
+    const about = document.getElementById('about');
+
+    helmet.addEventListener('click', () => {
+      helmet.classList.add('spin');
+
+      helmet.addEventListener('animationend', () => {
+        about.classList.add('visible');
+        helmet.classList.remove('spin'); // optional reset
+      }, { once: true });
+    });
+  </script>
 </body>
 </html>
