@@ -1,1 +1,43 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Spartan Trace Glow</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .helmet-container {
+      position: relative;
+      width: 300px;
+      height: auto;
+    }
+
+    .helmet-container img {
+      width: 100%;
+      height: auto;
+      filter: drop-shadow(0 0 5px #ff00ff) 
+              drop-shadow(0 0 10px #e040fb) 
+              drop-shadow(0 0 20px #b388ff);
+      transition: filter 0.3s ease-in-out;
+    }
+
+    .helmet-container img:hover {
+      filter: drop-shadow(0 0 10px #ff00ff) 
+              drop-shadow(0 0 20px #e040fb) 
+              drop-shadow(0 0 40px #b388ff);
+    }
+  </style>
+</head>
+<body>
+  <div class="helmet-container">
+    <img src="/MSUCSA/pngfind.com-molon-labe-png-5712557.png" alt="Spartan Helmet">
+  </div>
+</body>
+</html>
