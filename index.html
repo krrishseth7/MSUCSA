@@ -13,6 +13,7 @@
             padding: 0;
             background-color: black;
             font-family: Arial, sans-serif;
+            color: white;
         }
 
         .special-font {
@@ -59,6 +60,7 @@
             text-align: center;
             font-size: 30px;
             margin-top: 30px;
+            margin-bottom: 60px; /* Add space before footer */
             padding: 20px 30px;
             width: fit-content;
             position: relative;
@@ -75,30 +77,41 @@
             0%, 50%, 100% { opacity: 1; }
             25%, 75% { opacity: 0; }
         }
+
         .mobile-menu {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 80px;
-        right: 40px;
-        background-color: #111;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
-        z-index: 1000;
-}
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            top: 80px;
+            right: 40px;
+            background-color: #111;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+        }
 
-.mobile-menu a {
-    color: white;
-    text-decoration: none;
-    padding: 10px 0;
-    font-size: 18px;
-}
+        .mobile-menu a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 0;
+            font-size: 18px;
+        }
 
-.mobile-menu a:hover {
-    color: #ffb347; /* Optional: Highlight on hover */
-}
+        .mobile-menu a:hover {
+            color: #ffb347;
+        }
 
+        .footer {
+            color: #ddd;
+            background-color: #111;
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 16px;
+            margin-top: 80px;
+            border-top: 1px solid #333;
+            clear: both;
+        }
     </style>
 </head>
 <body>
@@ -114,8 +127,8 @@
         </div>
     </div>
 
-    
     <h3 class="quote special-font" id="typing-text"></h3>
+
     <div id="mobile-menu" class="mobile-menu">
         <a href="./Pages/AboutUs.html"> About Us</a>
         <a href="./Pages/Achievements.html"> Achievements</a>
@@ -126,6 +139,13 @@
         <a href="./Pages/contactUs.html"> Contact Us</a>
     </div>
 
+    <!-- Footer Section -->
+    <footer class="footer">
+        <p>© 2025 MSU Cricket Association. All rights reserved.</p>
+        <p>Spartans play cricket too 🏏</p>
+        <p> Go Green! Go White!</p>
+    </footer>
+
     <script>
         const quote = "If cricket ever felt like the one that got away, come home. We saved you a place on the pitch 🏏";
         const textElement = document.getElementById("typing-text");
@@ -135,16 +155,16 @@
             if (index < quote.length) {
                 textElement.innerHTML += quote.charAt(index);
                 index++;
-                setTimeout(typeNextChar, 60); 
+                setTimeout(typeNextChar, 60);
             }
         }
 
         window.onload = typeNextChar;
 
         function toggleMenu() {
-        const menu = document.getElementById("mobile-menu");
-        menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
-}
+            const menu = document.getElementById("mobile-menu");
+            menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
+        }
     </script>
 </body>
 </html>
