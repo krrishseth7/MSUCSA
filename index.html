@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MSUCSA</title>
+    <link rel="icon" type="image/png" href="Symbol.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+
+        .special-font {
+            font-family: "Playfair Display", serif;
+            font-optical-sizing: auto;
+            font-weight: 500;
+            font-style: normal;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-section img {
+            width: 200px;
+        }
+
+        .logo-section h2 {
+            color: aliceblue;
+            margin-left: 20px;
+        }
+
+        .menu-icon {
+            cursor: pointer;
+        }
+
+        .menu-icon div {
+            width: 30px;
+            height: 4px;
+            background-color: white;
+            margin: 6px 0;
+        }
+
+        .quote {
+            color: #edeceb;
+            text-align: center;
+            font-size: 30px;
+            margin-top: 30px;
+            margin-bottom: 60px; /* Add space before footer */
+            padding: 20px 30px;
+            width: fit-content;
+            position: relative;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #typing-text::after {
+            content: '|';
+            animation: blink 0.7s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50%, 100% { opacity: 1; }
+            25%, 75% { opacity: 0; }
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            top: 80px;
+            right: 40px;
+            background-color: #111;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+        }
+
+        .mobile-menu a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 0;
+            font-size: 18px;
+        }
+
+        .mobile-menu a:hover {
+            color: #ffb347;
+        }
+
+        .footer {
+            color: #ddd;
+            background-color: #111;
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 16px;
+            margin-top: 80px;
+            border-top: 1px solid #333;
+            clear: both;
+        }
+        .button{
+            margin: 30px;
+        }
+        .button a{
+            display: inline-block;
+            width: 140px;
+            height: 40px;
+            border-radius: 6px;
+            background-color: rgb(9, 255, 202);
+            padding: 12px 24px;
+            margin: 0 10px;
+            color: #111;
+            font-size: 18px;
+            white-space: nowrap;
+            text-align: center;
+            margin-left: 150px;
+            text-decoration: none;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-section">
+            <img src="./Symbol.png" alt="MSUCSA Logo">
+            <h2>MSU Cricket Association</h2>
+        </div>
+        <div onclick="toggleMenu()" class="menu-icon">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    
+
+    <h3 class="quote special-font" id="typing-text"></h3>
+
+    <div id="mobile-menu" class="mobile-menu">
+        <a href="./Pages/AboutUs.html"> About Us</a>
+        <a href="./Pages/Achievements.html"> Achievements</a>
+        <a href="./Pages/Eboard.html"> Meet our E-Board</a>
+        <a href="./Pages/Playercard.html"> Playercard</a>
+        <a href="./Pages/FundMe.html"> Go Fund me link</a>
+        <a href="./Pages/PhotosArchieve.html"> Photos Archieve</a>
+        <a href="./Pages/contactUs.html"> Contact Us</a>
+    </div>
+    <div class="button">
+        <a href="./Pages/Playercard.html"> 🏏Join Our Squad </a>
+        <a href="./Pages/Schedule.html"> Schedule! </a>
+    </div>
+
+    <footer class="footer">
+        <p>© 2025 MSU Cricket Association. All rights reserved.</p>
+        <p>Spartans play cricket too 🏏</p>
+        <p> Go Green! Go White!</p>
+    </footer>
+
+    <script>
+        const quote = "If cricket ever felt like the one that got away, come home. We saved you a place on the pitch 🏏";
+        const textElement = document.getElementById("typing-text");
+        let index = 0;
+
+        function typeNextChar() {
+            if (index < quote.length) {
+                textElement.innerHTML += quote.charAt(index);
+                index++;
+                setTimeout(typeNextChar, 60);
+            }
+        }
+
+        window.onload = typeNextChar;
+
+        function toggleMenu() {
+            const menu = document.getElementById("mobile-menu");
+            menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
+        }
+    </script>
+    
+</body>
+</html>
