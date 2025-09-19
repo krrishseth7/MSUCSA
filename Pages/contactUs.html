@@ -179,7 +179,7 @@
           add an action to Formspree or your backend, e.g.:
             action="https://formspree.io/f/your-id" method="POST"
       -->
-      <form id="contact-form" novalidate>
+      <form action="https://formspree.io/f/abcd1234" method="POST">
         <div class="row">
           <div>
             <label for="name">Full Name *</label>
@@ -282,7 +282,7 @@
     function hide(el){ el.style.display='none'; }
 
     form.addEventListener('submit', function(e){
-      e.preventDefault();
+      
 
       // fields
       const name = document.getElementById('name');
