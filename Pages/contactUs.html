@@ -1,1 +1,323 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Contact Us • MSUCSA</title>
+  <link rel="icon" type="image/png" href="../Symbol.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#000;
+      --panel:#111;
+      --panel-2:#0c0c0c;
+      --text:#eee;
+      --muted:#b7b7b7;
+      --brand:#09ffca;
+      --border:#262626;
+      --error:#ff5a5a;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background:var(--bg); color:var(--text);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    .special-font{ font-family:"Playfair Display", serif; }
+
+    /* header */
+    .header{
+      display:flex; justify-content:space-between; align-items:center;
+      padding:20px 40px;
+    }
+    .logo-section{ display:flex; align-items:center; gap:16px; }
+    .logo-section img{ width:160px; }
+    .logo-section h2{ margin:0; color:aliceblue; font-weight:700; }
+
+    .menu-icon{ cursor:pointer; display:flex; flex-direction:column; gap:6px; }
+    .menu-icon div{ width:30px; height:4px; background:#fff; border-radius:2px; }
+
+    .mobile-menu{
+      display:none; flex-direction:column; position:absolute; top:80px; right:40px;
+      background:var(--panel); padding:20px; border-radius:12px; box-shadow:0 6px 18px rgba(255,255,255,.08); z-index:1000;
+      border:1px solid var(--border);
+    }
+    .mobile-menu a{
+      color:#fff; text-decoration:none; padding:10px 0; font-size:16px;
+    }
+    .mobile-menu a:hover{ color:#ffb347; }
+
+    /* page hero */
+    .hero{
+      text-align:center; padding:14px 20px 8px;
+    }
+    .hero h1{
+      margin:10px 0 0; font-size:42px; letter-spacing:.4px;
+    }
+    .hero p{
+      margin:10px 0 30px; color:var(--muted);
+    }
+
+    /* layout */
+    .wrap{
+      max-width:1100px; margin:0 auto; padding:10px 20px 60px;
+      display:grid; grid-template-columns: 1.1fr .9fr; gap:24px;
+    }
+    @media (max-width: 900px){
+      .wrap{ grid-template-columns: 1fr; }
+    }
+
+    /* card styles */
+    .card{
+      background:linear-gradient(180deg,var(--panel),var(--panel-2));
+      border:1px solid var(--border);
+      border-radius:16px; padding:24px;
+      box-shadow:0 10px 24px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.03);
+    }
+    .card h3{ margin:0 0 14px; font-size:22px; }
+    .card p{ color:var(--muted); margin:0 0 18px; }
+
+    /* form */
+    form{ display:grid; gap:14px; }
+    .row{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    @media (max-width: 600px){ .row{ grid-template-columns:1fr; } }
+
+    label{ display:block; font-size:14px; color:#dcdcdc; margin-bottom:6px; }
+    input, textarea, select{
+      width:100%; background:#0a0a0a; color:#fff; border:1px solid var(--border);
+      border-radius:10px; padding:12px 14px; outline:none; transition:border-color .2s, box-shadow .2s;
+    }
+    input:focus, textarea:focus, select:focus{
+      border-color:var(--brand); box-shadow:0 0 0 3px rgba(9,255,202,.16);
+    }
+    textarea{ min-height:140px; resize:vertical; }
+
+    .hint{ font-size:12px; color:var(--muted); margin-top:4px; }
+
+    .actions{
+      display:flex; gap:12px; align-items:center; justify-content:flex-start; margin-top:6px;
+    }
+    .btn{
+      appearance:none; border:none; cursor:pointer; border-radius:10px;
+      padding:12px 18px; font-weight:600; font-size:16px;
+      background:var(--brand); color:#111; transition:transform .04s ease, filter .2s;
+    }
+    .btn:hover{ filter:brightness(.96); }
+    .btn:active{ transform:translateY(1px); }
+
+    .btn-ghost{
+      background:transparent; color:#fff; border:1px solid var(--border);
+    }
+    .error{ color:var(--error); font-size:13px; display:none; margin-top:6px; }
+
+    /* sidebar info */
+    .info-list{ list-style:none; padding:0; margin:0; display:grid; gap:14px; }
+    .info-item{ padding:14px; border:1px solid var(--border); border-radius:12px; background:#0a0a0a; }
+    .info-item b{ display:block; margin-bottom:6px; }
+
+    /* toast */
+    .toast{
+      position:fixed; left:50%; transform:translateX(-50%);
+      bottom:24px; background:#0f1f1b; color:#dffaf2; border:1px solid #1f3d34;
+      padding:12px 16px; border-radius:10px; box-shadow:0 10px 30px rgba(0,0,0,.45);
+      display:none; z-index:1500;
+    }
+
+    /* footer */
+    .footer{
+      color:#ddd; background:#111; text-align:center; padding:26px 20px; font-size:15px;
+      border-top:1px solid var(--border); margin-top:40px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <div class="header">
+    <div class="logo-section">
+      <img src="../Symbol.png" alt="MSUCSA Logo" />
+      <h2 class="special-font">MSU Cricket Association</h2>
+    </div>
+    <div onclick="toggleMenu()" class="menu-icon" aria-label="Open Menu">
+      <div></div><div></div><div></div>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <nav id="mobile-menu" class="mobile-menu" aria-label="Mobile">
+    <a href="../index.html"> Home</a>
+    <a href="./AboutUs.html"> About Us</a>
+    <a href="./Achievements.html"> Achievements</a>
+    <a href="./Eboard.html"> Meet our E-Board</a>
+    <a href="./Playercard.html"> Playercard</a>
+    <a href="./FundMe.html"> Go Fund Me</a>
+    <a href="./PhotosArchieve.html"> Photos Archive</a>
+    <a href="./Schedule.html"> Schedule</a>
+    <a href="./contactUs.html"> Contact Us</a>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1 class="special-font">Contact Us</h1>
+    <p>questions, scrim requests, or want to join? drop us a note — we’d love to hear from you.</p>
+  </section>
+
+  <!-- Content -->
+  <main class="wrap">
+    <!-- Contact Form -->
+    <section class="card" aria-labelledby="contact-title">
+      <h3 id="contact-title" class="special-font">Send a Message</h3>
+      <p>we typically reply within 1–2 days during the semester.</p>
+
+      <!--
+        NOTE:
+        - By default the form is handled in JS to show a success toast.
+        - If you want real submissions, replace the onsubmit handler +
+          add an action to Formspree or your backend, e.g.:
+            action="https://formspree.io/f/your-id" method="POST"
+      -->
+      <form id="contact-form" novalidate>
+        <div class="row">
+          <div>
+            <label for="name">Full Name *</label>
+            <input id="name" name="name" type="text" autocomplete="name" required />
+            <div class="error" id="err-name">please enter your name</div>
+          </div>
+          <div>
+            <label for="email">Email *</label>
+            <input id="email" name="email" type="email" inputmode="email" autocomplete="email" required />
+            <div class="error" id="err-email">please enter a valid email</div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label for="subject">Subject *</label>
+            <input id="subject" name="subject" type="text" required />
+            <div class="error" id="err-subject">subject is required</div>
+          </div>
+          <div>
+            <label for="type">I’m reaching out about</label>
+            <select id="type" name="type">
+              <option value="joining">Joining the club</option>
+              <option value="scrim">Scheduling a scrim</option>
+              <option value="sponsorship">Sponsorship</option>
+              <option value="other" selected>Other</option>
+            </select>
+            <div class="hint">this just helps us route your message</div>
+          </div>
+        </div>
+
+        <div>
+          <label for="message">Message *</label>
+          <textarea id="message" name="message" required placeholder="how can we help?"></textarea>
+          <div class="error" id="err-message">please write a short message</div>
+        </div>
+
+        <div class="actions">
+          <button class="btn" type="submit">Send Message</button>
+          <a class="btn btn-ghost" href="mailto:msucsa@example.com">Email Directly</a>
+        </div>
+      </form>
+    </section>
+
+    <aside class="card" aria-labelledby="info-title">
+      <h3 id="info-title" class="special-font">Club Details</h3>
+      <ul class="info-list">
+        <li class="info-item">
+          <b>General Email</b>
+          <span><a href="mailto:msucsa@example.com" style="color:var(--brand); text-decoration:none;">msucsa@example.com</a></span>
+        </li>
+        <li class="info-item">
+          <b>Practice Ground</b>
+          <span>MSU — (update location)</span>
+        </li>
+        <li class="info-item">
+          <b>Socials</b>
+          <span>IG: @msucsa • FB: @msucricket</span>
+        </li>
+        <li class="info-item">
+          <b>Office Hours</b>
+          <span>Mon–Fri 10a–4p (in-season)</span>
+        </li>
+      </ul>
+
+      <!-- optional map embed (replace src when you have a precise spot) -->
+      <div style="margin-top:16px; border-radius:12px; overflow:hidden; border:1px solid var(--border); aspect-ratio: 16/10;">
+        <iframe
+          title="MSU Map"
+          width="100%" height="100%" style="border:0"
+          loading="lazy" allowfullscreen
+          referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2995.058!2d-84.481!3d42.701!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3AMSU!5e0!3m2!1sen!2sus!4v0000000000">
+        </iframe>
+      </div>
+    </aside>
+  </main>
+
+  <!-- Toast -->
+  <div id="toast" class="toast">✅ thanks! Your message has been recorded!</div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2025 MSU Cricket Association. All rights reserved.</p>
+    <p>Spartans play cricket too 🏏 · Go Green! Go White!</p>
+  </footer>
+
+  <script>
+    // mobile menu
+    function toggleMenu(){
+      const menu = document.getElementById('mobile-menu');
+      menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
+    }
+
+    // simple form validation + fake submit -> toast
+    const form = document.getElementById('contact-form');
+    const toast = document.getElementById('toast');
+
+    function show(el){ el.style.display='block'; }
+    function hide(el){ el.style.display='none'; }
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+
+      // fields
+      const name = document.getElementById('name');
+      const email = document.getElementById('email');
+      const subject = document.getElementById('subject');
+      const message = document.getElementById('message');
+
+      // errors
+      const eName = document.getElementById('err-name');
+      const eEmail = document.getElementById('err-email');
+      const eSubject = document.getElementById('err-subject');
+      const eMessage = document.getElementById('err-message');
+
+      // reset errors
+      [eName,eEmail,eSubject,eMessage].forEach(hide);
+
+      let ok = true;
+
+      if(!name.value.trim()){ show(eName); ok = false; }
+      if(!subject.value.trim()){ show(eSubject); ok = false; }
+      if(!message.value.trim()){ show(eMessage); ok = false; }
+
+      const emailVal = email.value.trim();
+      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal);
+      if(!emailOk){ show(eEmail); ok = false; }
+
+      if(!ok) return;
+
+      // pretend submit succeeded
+      toast.style.display = 'block';
+      setTimeout(()=>{ toast.style.display='none'; }, 2600);
+      form.reset();
+
+      // If you plug a real backend, remove the lines above and let the form submit normally.
+    });
+  </script>
+</body>
+</html>
