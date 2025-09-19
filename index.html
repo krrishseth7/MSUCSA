@@ -112,25 +112,31 @@
             border-top: 1px solid #333;
             clear: both;
         }
-        .button{
-            margin: 30px;
-        }
-        .button a{
-            display: inline-block;
-            width: 140px;
-            height: 40px;
-            border-radius: 6px;
-            background-color: rgb(9, 255, 202);
-            padding: 12px 24px;
-            margin: 0 10px;
-            color: #111;
-            font-size: 18px;
-            white-space: nowrap;
-            text-align: center;
-            margin-left: 150px;
-            text-decoration: none;
+        .button {
+    display: flex;
+    justify-content: center; /* centers buttons horizontally */
+    gap: 20px;               /* space between buttons */
+    margin: 40px 0;          /* top & bottom spacing */
+}
 
-        }
+.button a {
+    display: inline-block;
+    min-width: 170px;
+    height: 45px;
+    line-height: 45px;       /* vertically center text */
+    border-radius: 6px;
+    background-color: rgb(9, 255, 202);
+    color: #111;
+    font-size: 18px;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.button a:hover {
+    background-color: #00d4b3; /* subtle hover effect */
+}
+
     </style>
 </head>
 <body>
