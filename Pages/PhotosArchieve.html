@@ -1,1 +1,332 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MSUCSA • Photos Archive</title>
+  <link rel="icon" type="image/png" href="./Symbol.png">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,600&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#000; --bg2:#0b0b0e; --fg:#f5f5f7; --muted:#b7b7c0;
+      --gold:#d4af37; --ring:rgba(212,175,55,.35);
+      --stroke:rgba(255,255,255,.08);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;color:var(--fg);
+      background:
+        radial-gradient(900px 400px at 10% -5%, rgba(212,175,55,.08), transparent),
+        radial-gradient(1000px 500px at 90% 0%, rgba(255,255,255,.06), transparent),
+        var(--bg);
+      font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      line-height:1.5;
+    }
+    .special{font-family:"Playfair Display", serif; font-weight:600}
+
+    /* Header */
+    .header{display:flex;justify-content:space-between;align-items:center;padding:16px 24px;border-bottom:1px solid #161616;background:rgba(0,0,0,.6);backdrop-filter:blur(8px)}
+    .logo{display:flex;align-items:center;gap:14px}
+    .logo img{width:160px}
+    .logo h2{margin:0}
+
+    /* Hero / controls */
+    .wrap{max-width:1200px;margin:24px auto;padding:0 24px}
+    .title{font-size:clamp(28px,4.6vw,48px);letter-spacing:-.02em;margin:.25rem 0 2px}
+    .eyebrow{color:var(--gold);text-transform:uppercase;letter-spacing:.18em;font-size:12px;font-weight:800}
+    .controls{
+      margin-top:16px;display:grid;gap:10px;
+      grid-template-columns:1fr; 
+    }
+    @media(min-width:900px){ .controls{ grid-template-columns: 1fr auto auto auto; align-items:center; } }
+    .search{display:flex;gap:10px;align-items:center;background:rgba(255,255,255,.03);border:1px solid var(--stroke);border-radius:12px;padding:10px 12px}
+    .search input{flex:1;background:transparent;border:0;outline:0;color:var(--fg)}
+    .select, .chip{
+      background:rgba(255,255,255,.03); border:1px solid var(--stroke); color:var(--fg);
+      padding:10px 12px; border-radius:12px; cursor:pointer;
+    }
+    .filters{display:flex;gap:8px;flex-wrap:wrap}
+    .chip[aria-pressed="true"]{outline:2px solid var(--gold);outline-offset:2px}
+
+    /* Masonry grid */
+    .grid{column-count:1; column-gap:16px; margin-top:18px}
+    @media(min-width:600px){ .grid{column-count:2} }
+    @media(min-width:980px){ .grid{column-count:3} }
+    .card{
+      break-inside:avoid; margin:0 0 16px; border-radius:14px; overflow:hidden;
+      background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02)),var(--bg2);
+      border:1px solid var(--stroke); box-shadow:0 10px 30px rgba(0,0,0,.45);
+      position:relative;
+    }
+    .card figure{margin:0}
+    .card img{width:100%; height:auto; display:block; background:#111; aspect-ratio:4/3; object-fit:cover; filter:contrast(1.05) saturate(1.05)}
+    .meta{display:flex;justify-content:space-between;align-items:center;padding:10px 12px}
+    .meta .left{display:flex;gap:10px;align-items:center}
+    .tag{font-size:12px;color:#d7d7d7;background:#101010;border:1px solid var(--stroke);padding:4px 8px;border-radius:999px}
+    .meta small{color:#a7a7a7}
+    .open{position:absolute;inset:0;border:0;background:transparent;cursor:pointer}
+    .open:focus{outline:2px solid var(--gold);outline-offset:-2px}
+
+    /* Lightbox */
+    .lightbox{
+      position:fixed; inset:0; background:rgba(0,0,0,.9);
+      display:none; place-items:center; z-index:1000; padding:16px;
+    }
+    .lightbox.show{display:grid}
+    .lb-inner{max-width:min(1100px, 96vw); max-height:90vh; display:grid; gap:8px}
+    .lb-img{max-width:100%; max-height:80vh; border-radius:10px; border:1px solid var(--stroke); object-fit:contain; background:#000}
+    .lb-meta{display:flex; justify-content:space-between; align-items:center; color:#ddd; font-size:14px}
+    .lb-controls{display:flex; gap:8px}
+    .btn{
+      background:rgba(255,255,255,.08); border:1px solid var(--stroke); color:#f5f5f7; 
+      padding:8px 12px; border-radius:10px; cursor:pointer;
+    }
+    .btn:hover{outline:2px solid var(--gold)}
+    footer{color:#ddd;background:#111;text-align:center;padding:28px 20px;margin-top:36px;border-top:1px solid #333}
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <div class="header">
+    <div class="logo">
+      <img src="/Symbol.png" alt="MSUCSA Logo">
+      <h2 class="special">MSU Cricket Association</h2>
+    </div>
+  </div>
+
+  <!-- Hero + Controls -->
+  <section class="wrap">
+    <div class="eyebrow special">Photos Archive</div>
+    <h1 class="title special">Memories, Matches & Moments</h1>
+
+    <div class="controls">
+      <div class="search" role="search">
+        <input id="q" type="search" placeholder="Search by caption, tag, opponent, venue…" aria-label="Search photos">
+      </div>
+
+      <div class="filters" aria-label="Categories">
+        <button class="chip" data-cat="all" aria-pressed="true">All</button>
+        <button class="chip" data-cat="tournament">Tournaments</button>
+        <button class="chip" data-cat="match">Matches</button>
+        <button class="chip" data-cat="practice">Practice</button>
+        <button class="chip" data-cat="community">Community</button>
+        <button class="chip" data-cat="eboard">E-Board</button>
+      </div>
+
+      <select id="year" class="select" aria-label="Filter by year">
+        <option value="all" selected>All years</option>
+        <option>2026</option>
+        <option>2025</option>
+        <option>2024</option>
+        <option>2023</option>
+      </select>
+
+      <a class="select" href="mailto:msu.cricket@example.com?subject=Photo%20submission" title="Email us photos">
+        + Submit Photos
+      </a>
+    </div>
+  </section>
+
+  <!-- Gallery Grid -->
+  <section class="wrap">
+    <div id="grid" class="grid" aria-live="polite">
+
+      <!-- ====== GALLERY ITEMS (duplicate and edit) ======
+           data-cat: tournament | match | practice | community | eboard
+           data-year: 2023/2024/... (4 digits)
+           data-caption is searchable
+           Replace src and full with your actual images
+      -->
+
+      <article class="card" tabindex="0"
+               data-cat="tournament" data-year="2025"
+               data-caption="NCCA Regionals • Semifinal win vs Troy Tigers, Friendship Cup 2025">
+        <figure>
+          <img data-src="./photos/2025/friendship-cup/semis_team.jpg" alt="Team huddle before semifinal" loading="lazy">
+        </figure>
+        <div class="meta">
+          <div class="left">
+            <span class="tag">Tournament</span><span class="tag">2025</span>
+          </div>
+          <small>Friendship Cup</small>
+        </div>
+        <button class="open" data-full="./photos/2025/friendship-cup/semis_team.jpg" aria-label="Open photo"></button>
+      </article>
+
+      <article class="card" tabindex="0"
+               data-cat="match" data-year="2025"
+               data-caption="Highest total 270 • MSU vs GDCC">
+        <figure>
+          <img data-src="./photos/2025/record-270/scoreboard.jpg" alt="Scoreboard shows 270" loading="lazy">
+        </figure>
+        <div class="meta">
+          <div class="left"><span class="tag">Match</span><span class="tag">2025</span></div>
+          <small>Record total</small>
+        </div>
+        <button class="open" data-full="./photos/2025/record-270/scoreboard.jpg" aria-label="Open photo"></button>
+      </article>
+
+      <article class="card" tabindex="0"
+               data-cat="practice" data-year="2024"
+               data-caption="Indoor nets • Winter training at IM West">
+        <figure>
+          <img data-src="./photos/2024/winter-nets/net_session.jpg" alt="Indoor net practice" loading="lazy">
+        </figure>
+        <div class="meta">
+          <div class="left"><span class="tag">Practice</span><span class="tag">2024</span></div>
+          <small>IM West</small>
+        </div>
+        <button class="open" data-full="./photos/2024/winter-nets/net_session.jpg" aria-label="Open photo"></button>
+      </article>
+
+      <article class="card" tabindex="0"
+               data-cat="community" data-year="2024"
+               data-caption="Spartans Cricket Day • Community demo & signups">
+        <figure>
+          <img data-src="./photos/2024/community-day/group.jpg" alt="Community cricket day group photo" loading="lazy">
+        </figure>
+        <div class="meta">
+          <div class="left"><span class="tag">Community</span><span class="tag">2024</span></div>
+          <small>Outreach</small>
+        </div>
+        <button class="open" data-full="./photos/2024/community-day/group.jpg" aria-label="Open photo"></button>
+      </article>
+
+      <article class="card" tabindex="0"
+               data-cat="eboard" data-year="2025"
+               data-caption="E-Board 2025–26 • Captain & Vice Captain">
+        <figure>
+          <img data-src="./photos/2025/eboard/captain_vc.jpg" alt="E-board captain and vice-captain" loading="lazy">
+        </figure>
+        <div class="meta">
+          <div class="left"><span class="tag">E-Board</span><span class="tag">2025</span></div>
+          <small>Leadership</small>
+        </div>
+        <button class="open" data-full="./photos/2025/eboard/captain_vc.jpg" aria-label="Open photo"></button>
+      </article>
+
+      <!-- Add more <article class="card">…</article> items here -->
+
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox" aria-modal="true" role="dialog" aria-hidden="true">
+    <div class="lb-inner">
+      <img id="lbImg" class="lb-img" alt="">
+      <div class="lb-meta">
+        <div id="lbCaption"></div>
+        <div class="lb-controls">
+          <button class="btn" id="prevBtn" aria-label="Previous photo">‹ Prev</button>
+          <button class="btn" id="nextBtn" aria-label="Next photo">Next ›</button>
+          <button class="btn" id="closeBtn" aria-label="Close lightbox">Close ✕</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>© 2025 MSU Cricket Association. Spartans play cricket too 🏏</footer>
+
+  <script>
+    // ------- Lazy-load images -------
+    const lazyImgs = document.querySelectorAll('img[data-src]');
+    const io = new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          const img = e.target;
+          img.src = img.getAttribute('data-src');
+          img.removeAttribute('data-src');
+          io.unobserve(img);
+        }
+      });
+    }, {rootMargin:'200px'});
+    lazyImgs.forEach(i=>io.observe(i));
+
+    // ------- Filters & search -------
+    const grid = document.getElementById('grid');
+    const chips = document.querySelectorAll('.chip');
+    const yearSel = document.getElementById('year');
+    const q = document.getElementById('q');
+    let currentCat = 'all';
+
+    chips.forEach(c=>{
+      c.addEventListener('click', ()=>{
+        chips.forEach(x=>x.setAttribute('aria-pressed','false'));
+        c.setAttribute('aria-pressed','true');
+        currentCat = c.dataset.cat;
+        applyFilters();
+      });
+    });
+    yearSel.addEventListener('change', applyFilters);
+    q.addEventListener('input', applyFilters);
+
+    function applyFilters(){
+      const term = (q.value||'').toLowerCase().trim();
+      const year = yearSel.value;
+      const cards = grid.querySelectorAll('.card');
+      cards.forEach(card=>{
+        const catOk = currentCat==='all' || card.dataset.cat===currentCat;
+        const yearOk = year==='all' || card.dataset.year===year;
+        const cap = (card.dataset.caption||'').toLowerCase();
+        const textOk = !term || cap.includes(term);
+        card.style.display = (catOk && yearOk && textOk) ? '' : 'none';
+      });
+    }
+
+    // ------- Lightbox -------
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lbImg');
+    const lbCaption = document.getElementById('lbCaption');
+    const items = Array.from(document.querySelectorAll('.card'));
+    let idx = -1;
+
+    function openAt(i){
+      idx = i;
+      const item = items[idx];
+      const full = item.querySelector('.open').dataset.full;
+      const cap = item.getAttribute('data-caption') || '';
+      lbImg.src = full;
+      lbImg.alt = cap;
+      lbCaption.textContent = cap;
+      lb.classList.add('show');
+      lb.setAttribute('aria-hidden','false');
+    }
+    function closeLb(){
+      lb.classList.remove('show');
+      lb.setAttribute('aria-hidden','true');
+      lbImg.src = '';
+    }
+    function next(){ for(let j=1;j<=items.length;j++){ const i=(idx+j)%items.length; if(items[i].style.display!=='none'){ openAt(i); break; } } }
+    function prev(){ for(let j=1;j<=items.length;j++){ const i=(idx - j + items.length)%items.length; if(items[i].style.display!=='none'){ openAt(i); break; } } }
+
+    grid.addEventListener('click', e=>{
+      const btn = e.target.closest('.open');
+      if(!btn) return;
+      const card = btn.closest('.card');
+      openAt(items.indexOf(card));
+    });
+    grid.addEventListener('keydown', e=>{
+      if(e.key==='Enter' || e.key===' '){
+        const card = e.target.closest('.card');
+        if(card){ e.preventDefault(); openAt(items.indexOf(card)); }
+      }
+    });
+
+    document.getElementById('closeBtn').onclick = closeLb;
+    document.getElementById('nextBtn').onclick = next;
+    document.getElementById('prevBtn').onclick = prev;
+    lb.addEventListener('click', (e)=>{ if(e.target===lb) closeLb(); });
+    window.addEventListener('keydown', e=>{
+      if(lb.classList.contains('show')){
+        if(e.key==='Escape') closeLb();
+        if(e.key==='ArrowRight') next();
+        if(e.key==='ArrowLeft') prev();
+      }
+    });
+
+    // Initial filter to ensure layout is correct
+    applyFilters();
+  </script>
+</body>
+</html>
