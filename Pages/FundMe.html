@@ -3,133 +3,86 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MSUCSA • Fund Us</title>
+  <title>MSUCSA • Fund Us (Venmo)</title>
   <link rel="icon" type="image/png" href="./Symbol.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,600&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg: #000;                /* true black base */
-      --bg-elev: #0b0b0e;        /* slightly lifted panel */
-      --fg: #f5f5f7;             /* near-white text */
-      --muted: #b7b7c0;          /* muted text */
-      --gold: #d4af37;           /* royal gold */
-      --gold-2: #b8921a;         /* deep gold */
-      --ring: rgba(212,175,55,.35);
-      --stroke: rgba(255,255,255,.08);
+      --bg:#000; --bg2:#0b0b0e; --fg:#f5f5f7; --muted:#b7b7c0;
+      --gold:#d4af37; --gold2:#b8921a; --ring:rgba(212,175,55,.35); --stroke:rgba(255,255,255,.08);
     }
-    *{ box-sizing: border-box; }
-    html, body { height: 100%; }
+    *{box-sizing:border-box}
+    html,body{height:100%}
     body{
       margin:0; color:var(--fg);
       background:
         radial-gradient(900px 400px at 10% -5%, rgba(212,175,55,.08), transparent),
         radial-gradient(1000px 500px at 90% 0%, rgba(255,255,255,.06), transparent),
         var(--bg);
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      line-height:1.5;
+      font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
     }
-    .special-font{ font-family: "Playfair Display", serif; font-weight: 600; }
-
-    /* Header (matches your site) */
-    .header{ display:flex; justify-content:space-between; align-items:center; padding:20px 40px; }
-    .logo-section{ display:flex; align-items:center; gap:16px; }
-    .logo-section img{ width:200px; }
-    .logo-section h2{ margin:0; color:#fff; font-weight:700; letter-spacing:.2px; }
-    .menu-icon{ cursor:pointer; }
-    .menu-icon div{ width:30px; height:4px; background-color:#fff; margin:6px 0; border-radius:2px; }
-
-    .mobile-menu{ display:none; flex-direction:column; position:absolute; top:80px; right:40px; background-color:#111; padding:20px; border-radius:10px; box-shadow:0 4px 10px rgba(255,255,255,.1); z-index:1000; }
-    .mobile-menu a{ color:#fff; text-decoration:none; padding:10px 0; font-size:18px; }
-    .mobile-menu a:hover{ color:var(--gold); }
-
-    /* Page hero */
-    .hero{ max-width:1100px; margin:20px auto 10px; padding:0 24px; display:grid; gap:10px; }
-    .eyebrow{ color:var(--gold); text-transform:uppercase; letter-spacing:.2em; font-weight:700; font-size:12px; }
-    .title{ font-size: clamp(28px, 5vw, 48px); font-weight:800; letter-spacing:-.02em; }
-    .subtitle{ color:var(--muted); font-size: clamp(15px, 2.5vw, 18px); }
-
-    /* Card */
-    .card{
-      max-width:1100px; margin:24px auto; padding:24px; border-radius:20px; border:1px solid var(--stroke);
-      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)), var(--bg-elev);
-      box-shadow: 0 10px 30px rgba(0,0,0,.5);
-    }
-
-    .grid{ display:grid; grid-template-columns:1fr; gap:20px; }
-    @media (min-width: 980px){ .grid{ grid-template-columns:1.15fr .85fr; } }
-
-    .field{ display:grid; gap:6px; margin-bottom:12px; }
-    .label{ font-weight:700; font-size:13px; color:var(--muted); }
-    .input{ width:100%; padding:12px 14px; border-radius:12px; border:1px solid var(--stroke); background:rgba(255,255,255,.03); color:var(--fg); outline:none; }
-    .input:focus{ box-shadow: 0 0 0 6px var(--ring); border-color: var(--gold); }
-
-    .amounts{ display:flex; flex-wrap:wrap; gap:10px; }
-    .chip{ padding:10px 14px; border-radius:999px; background:rgba(255,255,255,.04); border:1px solid var(--stroke); color:var(--fg); cursor:pointer; user-select:none; }
-    .chip[aria-pressed="true"]{ outline:2px solid var(--gold); outline-offset:2px; background:rgba(212,175,55,.15); }
-
-    .btn{ display:inline-flex; align-items:center; justify-content:center; gap:10px; width:100%;
-          padding:14px 16px; border-radius:14px; border:1px solid var(--gold-2);
-          background: linear-gradient(135deg, var(--gold), var(--gold-2)); color:#0b0f19; font-weight:800; text-decoration:none; cursor:pointer; }
-    .btn:hover{ transform: translateY(-1px); box-shadow: 0 10px 24px rgba(212,175,55,.35); }
-    .btn.secondary{ background:transparent; color:var(--fg); border:1px solid var(--stroke); }
-
-    .aside{ display:grid; gap:14px; }
-    .aside h4{ margin:0; font-size:18px; font-weight:800; color:var(--gold); }
-    .list{ margin:0; padding-left:18px; color:var(--muted); }
-
-    .footer{ color:#ddd; background-color:#111; text-align:center; padding:30px 20px; font-size:16px; margin-top:60px; border-top:1px solid #333; }
-
-    .badge{
-      display:inline-grid; place-items:center; width:120px; height:120px; border-radius:14px; border:1px dashed var(--stroke);
-      color:var(--muted); background:rgba(255,255,255,.03);
-    }
+    .special{font-family:"Playfair Display", serif; font-weight:600}
+    .header{display:flex;justify-content:space-between;align-items:center;padding:16px 24px;border-bottom:1px solid #161616;background:rgba(0,0,0,.6);backdrop-filter:blur(8px)}
+    .logo{display:flex;align-items:center;gap:14px}
+    .logo img{width:160px}
+    .logo h2{margin:0}
+    .hero{max-width:1100px;margin:24px auto 8px;padding:0 24px}
+    .eyebrow{color:var(--gold);text-transform:uppercase;letter-spacing:.18em;font-size:12px;font-weight:800}
+    .title{font-size:clamp(28px,4.6vw,48px);letter-spacing:-.02em;margin:.25rem 0 0}
+    .subtitle{color:var(--muted);max-width:900px}
+    .card{max-width:1100px;margin:18px auto;padding:24px;border-radius:20px;border:1px solid var(--stroke);
+      background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02)),var(--bg2);box-shadow:0 10px 30px rgba(0,0,0,.5)}
+    .grid{display:grid;gap:24px}
+    @media (min-width:980px){.grid{grid-template-columns:1.1fr .9fr}}
+    .field{display:grid;gap:6px;margin-bottom:10px}
+    .label{font-weight:700;font-size:13px;color:var(--muted)}
+    .input{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--stroke);background:rgba(255,255,255,.03);color:var(--fg);outline:none}
+    .input:focus{box-shadow:0 0 0 6px var(--ring);border-color:var(--gold)}
+    .amounts{display:flex;flex-wrap:wrap;gap:10px}
+    .chip{padding:10px 14px;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid var(--stroke);color:var(--fg);cursor:pointer}
+    .chip[aria-pressed="true"]{outline:2px solid var(--gold);outline-offset:2px;background:rgba(212,175,55,.15)}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:14px;border-radius:14px;border:1px solid var(--gold2);
+      background:linear-gradient(135deg,var(--gold),var(--gold2));color:#0b0f19;font-weight:800;cursor:pointer;text-decoration:none}
+    .btn:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(212,175,55,.35)}
+    .btn.secondary{background:transparent;color:var(--fg);border:1px solid var(--stroke)}
+    .aside{display:grid;gap:14px}
+    .aside h4{margin:0;color:var(--gold)}
+    .note{color:var(--muted);font-size:14px}
+    .qr{display:grid;place-items:center;gap:8px;background:rgba(255,255,255,.03);border:1px dashed var(--stroke);border-radius:14px;padding:14px}
+    .qr img{width:220px;max-width:100%;height:auto;border-radius:10px}
+    .row{display:flex;gap:8px;align-items:center}
+    .cpy{padding:10px 12px;border-radius:10px;background:#101010;border:1px solid var(--stroke);cursor:pointer;color:var(--muted)}
+    footer{color:#ddd;background:#111;text-align:center;padding:28px 20px;margin-top:48px;border-top:1px solid #333}
   </style>
 </head>
 <body>
-  <!-- Header (reuse your site header layout) -->
   <div class="header">
-    <div class="logo-section">
+    <div class="logo">
       <img src="/Symbol.png" alt="MSUCSA Logo">
-      <h2 class="special-font">MSU Cricket Association</h2>
-    </div>
-    <div onclick="toggleMenu()" class="menu-icon" aria-label="Open menu" role="button" tabindex="0">
-      <div></div><div></div><div></div>
+      <h2 class="special">MSU Cricket Association</h2>
     </div>
   </div>
 
-  <div id="mobile-menu" class="mobile-menu">
-    <a href="./Pages/AboutUs.html">About Us</a>
-    <a href="./Pages/Achievements.html">Achievements</a>
-    <a href="./Pages/Eboard.html">Meet our E‑Board</a>
-    <a href="./Pages/Playercard.html">Playercard</a>
-    <a href="./Pages/FundMe.html">Go Fund Me</a>
-    <a href="./Pages/PhotosArchieve.html">Photos Archive</a>
-    <a href="./Pages/contactUs.html">Contact Us</a>
-  </div>
-
-  <!-- Royal black hero -->
   <section class="hero">
-    <div class="eyebrow special-font">Fund the Future of MSU Cricket</div>
-    <h1 class="title special-font">Back the Spartans <span style="color:var(--gold);">•</span> Build the Game</h1>
-    <p class="subtitle">Your contribution helps us buy gear, book indoor nets, travel to tournaments, and grow the MSU cricket community. Thank you for supporting student athletes. 🏏</p>
+    <div class="eyebrow special">Fund the Future of MSU Cricket</div>
+    <h1 class="title special">Back the Spartans <span style="color:#d4af37">•</span> Build the Game</h1>
+    <p class="subtitle">We’re keeping it simple: support MSU Cricket via <strong>Venmo</strong>. Pick an amount, add a note, and tap the Venmo button — no extra accounts or APIs.</p>
   </section>
 
-  <!-- Main card -->
   <section class="card">
     <div class="grid">
-      <form id="donation-form" onsubmit="return false;">
+      <!-- LEFT -->
+      <div>
         <div class="field">
           <label class="label" for="name">Name (optional)</label>
-          <input id="name" name="name" class="input" placeholder="Spartan Supporter" />
+          <input id="name" class="input" placeholder="Spartan Supporter" />
         </div>
 
         <div class="field">
-          <label class="label">Choose an amount</label>
+          <span class="label">Choose an amount</span>
           <div class="amounts" id="amounts">
             <button type="button" class="chip" data-amt="10">$10</button>
-            <button type="button" class="chip" data-amt="25">$25</button>
+            <button type="button" class="chip" data-amt="25" aria-pressed="true">$25</button>
             <button type="button" class="chip" data-amt="50">$50</button>
             <button type="button" class="chip" data-amt="100">$100</button>
             <button type="button" class="chip" data-amt="0">Custom</button>
@@ -138,108 +91,113 @@
 
         <div class="field">
           <label class="label" for="custom">Custom amount (USD)</label>
-          <input id="custom" name="custom" class="input" type="number" min="1" step="1" placeholder="e.g., 42" />
+          <input id="custom" class="input" type="number" min="1" step="1" placeholder="e.g., 42" />
         </div>
 
         <div class="field">
           <label class="label" for="note">Message (optional)</label>
-          <input id="note" name="note" class="input" maxlength="120" placeholder="Go Green! Go White!" />
+          <input id="note" class="input" maxlength="120" placeholder="Go Green! Go White!" />
         </div>
 
         <div class="field">
-          <!-- STRIPE PAYMENT LINK: replace URL below -->
-          <a id="stripeBtn" class="btn" href="#" target="_blank" rel="noopener">Pay with Stripe</a>
+          <button id="venmoBtn" class="btn">Open Venmo</button>
         </div>
 
-        <div class="field">
-          <!-- PAYPAL DONATE: replace YOUR_PAYPAL_EMAIL -->
-          <form id="paypalForm" action="https://www.paypal.com/donate" method="post" target="_blank">
-            <input type="hidden" name="business" value="YOUR_PAYPAL_EMAIL">
-            <input type="hidden" name="currency_code" value="USD">
-            <input type="hidden" name="item_name" value="MSUCSA Donation">
-            <input type="hidden" name="amount" id="paypal-amount">
-            <button type="submit" class="btn secondary">Donate with PayPal</button>
-          </form>
+        <p class="note">If the app doesn’t open, a web link will be shown below. You can also scan the QR on the right.</p>
+
+        <div id="fallback" class="field" style="display:none;">
+          <a id="venmoWeb" class="btn secondary" href="#" target="_blank" rel="noopener">Open Venmo on Web</a>
         </div>
+      </div>
 
-        <p class="subtitle" style="margin-top:8px;">Payments are securely processed by Stripe or PayPal. We never store card details.</p>
-      </form>
-
+      <!-- RIGHT -->
       <aside class="aside">
-        <h4 class="special-font">Where your donation goes</h4>
-        <ul class="list">
-          <li>Cricket kits, balls, and protective gear</li>
+        <h4 class="special">Our Venmo</h4>
+        <div class="row">
+          <input id="handle" class="input" value="@kseth2" aria-label="Venmo handle" readonly>
+          <button class="cpy" id="copyBtn" title="Copy handle">Copy</button>
+        </div>
+
+        <div class="qr">
+          <img src="/QRcode.png" alt="Scan to pay on Venmo">
+          <div class="note">Scan with your phone camera to pay</div>
+        </div>
+
+        <h4 class="special">Where donations go</h4>
+        <ul class="note" style="margin-top:-4px">
+          <li>Cricket kits, balls, protective gear</li>
           <li>Indoor nets and facility rentals</li>
-          <li>Tournament registrations and travel</li>
+          <li>Tournament registrations & travel</li>
           <li>Community events and coaching</li>
         </ul>
-        <div class="badge">
-            <img src="/QRcode.png" style="width: 150px; height: 150px;"> 
-            
-        </div>
-        <p class="subtitle">Prefer Venmo/UPI? Add links or QR codes here.</p>
       </aside>
     </div>
   </section>
 
-  <footer class="footer">
-    <p>© 2025 MSU Cricket Association. All rights reserved.</p>
-    <p>Spartans play cricket too 🏏 · Go Green! Go White!</p>
-  </footer>
+  <footer>© 2025 MSU Cricket Association. Spartans play cricket too 🏏</footer>
 
   <script>
-    // Mobile menu toggle (matches your index behavior)
-    function toggleMenu(){
-      const menu = document.getElementById('mobile-menu');
-      menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
-    }
+    const VENMO_HANDLE = "kseth2";
 
-    // Amount chips
     const chips = document.querySelectorAll('.chip');
     const custom = document.getElementById('custom');
-    const stripeBtn = document.getElementById('stripeBtn');
-    const paypalAmount = document.getElementById('paypal-amount');
-    let amount = 25; // default
+    let amount = 25;
 
-    function setPressed(el){
-      chips.forEach(c => c.setAttribute('aria-pressed','false'));
-      el.setAttribute('aria-pressed','true');
-    }
+    function setPressed(el){ chips.forEach(c=>c.setAttribute('aria-pressed','false')); el.setAttribute('aria-pressed','true'); }
 
-    chips.forEach(chip => {
-      chip.addEventListener('click', () => {
-        const val = Number(chip.dataset.amt);
-        if (val > 0) {
-          amount = val; custom.value = ''; setPressed(chip);
-        } else { custom.focus(); setPressed(chip); }
+    chips.forEach(chip=>{
+      chip.addEventListener('click', ()=>{
+        const v = Number(chip.dataset.amt);
+        if(v>0){ amount = v; custom.value = ""; }
+        else{ custom.focus(); }
+        setPressed(chip);
       });
     });
 
-    custom.addEventListener('input', () => {
-      const v = Math.max(0, Math.floor(Number(custom.value || 0)));
-      if (v > 0) amount = v;
+    custom.addEventListener('input', ()=>{
+      const v = Math.max(0, Math.floor(Number(custom.value||0)));
+      if(v>0) amount = v;
     });
 
-    // Stripe Payment Link (replace with your real link)
-    const STRIPE_PAYMENT_LINK = 'https://buy.stripe.com/REPLACE_ME';
-    stripeBtn.addEventListener('click', (e) => {
-      if (STRIPE_PAYMENT_LINK.includes('REPLACE_ME')){
-        e.preventDefault();
-        alert('Add your Stripe Payment Link URL in the code (STRIPE_PAYMENT_LINK).');
-        return;
-      }
-      // If your Payment Link supports parameters, you can append them as needed.
-      stripeBtn.setAttribute('href', STRIPE_PAYMENT_LINK);
+    document.getElementById('copyBtn').addEventListener('click', async ()=>{
+      try{
+        await navigator.clipboard.writeText('@'+VENMO_HANDLE);
+        const btn = document.getElementById('copyBtn');
+        btn.textContent = 'Copied'; setTimeout(()=>btn.textContent='Copy', 1200);
+      }catch(e){}
     });
 
-    // PayPal amount wiring & guard
-    const paypalForm = document.getElementById('paypalForm');
-    paypalForm.addEventListener('submit', () => {
-      paypalAmount.value = amount > 0 ? amount : '';
-      if (paypalForm.business && paypalForm.business.value === 'YOUR_PAYPAL_EMAIL'){
-        alert('Replace YOUR_PAYPAL_EMAIL in the PayPal form with your PayPal business email or merchant ID.');
-      }
+    function encodeNote(){
+      const name = (document.getElementById('name').value||'').trim();
+      const note = (document.getElementById('note').value||'').trim();
+      const base = note ? note : "MSU Cricket Donation";
+      return encodeURIComponent(name ? `${base} — ${name}` : base);
+    }
+
+    function isMobile(){
+      return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    }
+
+    const venmoBtn = document.getElementById('venmoBtn');
+    const venmoWeb = document.getElementById('venmoWeb');
+    const fallback = document.getElementById('fallback');
+
+    venmoBtn.addEventListener('click', ()=>{
+      const amt = Math.max(0, Math.floor(Number(amount||0)));
+      const note = encodeNote();
+      const appUrl = `venmo://paycharge?txn=pay&recipients=${encodeURIComponent(VENMO_HANDLE)}${amt?`&amount=${amt}`:""}&note=${note}`;
+      const webUrl = `https://venmo.com/u/${encodeURIComponent(VENMO_HANDLE)}`;
+
+      // Always show fallback
+      fallback.style.display = 'block';
+      venmoWeb.href = webUrl;
+
+      // Only try app link on mobile (desktop Safari will say “invalid address”)
+      if (isMobile()) window.location.href = appUrl;
+      else console.log("Desktop browser: using web link only.");
     });
+
+    document.getElementById('handle').value = '@'+VENMO_HANDLE;
   </script>
 </body>
 </html>

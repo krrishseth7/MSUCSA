@@ -1,311 +1,467 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MSU Cricket Team</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MSU Cricket Student Association — Team</title>
 
-  <!-- Google Font for professional look -->
+  <!-- Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background-color: #0b0b0b;
-      color: #fff;
+    :root{
+      --bg:#0b0b0b;
+      --panel:#121212;
+      --panel-2:#1a1a1a;
+      --text:#f5f5f5;
+      --muted:#cfcfcf;
+      --gold:#ffd700;
+      --ring:#2a2a2a;
+      --shadow: 0 12px 32px rgba(0,0,0,.55);
+      --radius:18px;
     }
 
-    h1 {
-      text-align: center;
-      margin-top: 30px;
-      font-weight: 600;
-      letter-spacing: 2px;
-      color: #f5f5f5;
+    /* Base */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background: radial-gradient(1000px 800px at 80% -10%, rgba(255,215,0,.08), transparent 60%) , var(--bg);
+      color:var(--text);
     }
 
-    .team-section {
-      max-width: 1600px;
-      margin: 50px auto;
-      padding: 0 30px;
+    /* Header / toolbar */
+    header{
+      border-bottom:1px solid #252525;
+      position:sticky; top:0; z-index:50;
+      backdrop-filter:saturate(1.1) blur(6px);
+      background:linear-gradient(180deg,rgba(0,0,0,.7),rgba(0,0,0,.45));
     }
+    .wrap{max-width:1400px;margin:0 auto;padding:20px 24px}
+    .brand{
+      display:flex;align-items:center;gap:12px;justify-content:center;text-align:center
+    }
+    .brand h1{font-size:clamp(22px,3vw,32px);letter-spacing:1px;margin:0;font-weight:600}
+    .brand .tag{font-size:12px;color:#bdbdbd;letter-spacing:.3px}
 
-    .team-row {
-      display: flex;
-      justify-content: center;
-      gap: 50px;
-      flex-wrap: wrap;
-      margin-top: 50px;
+    .tools{
+      display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:14px
+    }
+    .search{
+      display:flex;align-items:center;gap:10px;
+      background:var(--panel);border:1px solid var(--ring);
+      padding:10px 12px;border-radius:12px;min-width:260px;max-width:520px;flex:1
+    }
+    .search input{
+      background:transparent;border:0;outline:0;color:var(--text);width:100%;
+      font-size:14px
+    }
+    .filters{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+    .chip{
+      padding:8px 12px;border:1px solid var(--ring);border-radius:999px;
+      background:var(--panel);color:var(--text);font-size:13px;cursor:pointer;
+      transition:transform .1s ease, border-color .2s ease;
+      user-select:none
+    }
+    .chip:hover{transform:translateY(-1px)}
+    .chip.active{border-color:var(--gold);box-shadow:0 0 0 1px rgba(255,215,0,.3) inset}
+
+    /* Grid */
+    main{max-width:1400px;margin:32px auto 70px;padding:0 24px}
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fill, minmax(220px, 1fr));
+      gap:28px;
     }
 
     /* Card */
-    .card {
-      width: 220px;
-      height: 320px;
-      perspective: 1200px;
-      position: relative;
-      transition: transform 0.3s ease;
-      border: 2px solid white;       /* White border on the outer card */
-      border-radius: 18px;           /* Rounded border to match inner cards */
-      overflow: hidden;   
+    .card{
+      position:relative;height:340px;perspective:1200px;border-radius:var(--radius);
+      border:1px solid var(--ring);background:var(--panel-2);box-shadow:var(--shadow);
+      overflow:hidden; transition:transform .2s ease, box-shadow .2s ease;
     }
+    .card:focus-within,
+    .card:hover{transform:translateY(-2px)}
+    .inner{
+      position:relative;width:100%;height:100%;transform-style:preserve-3d;
+      transition:transform .7s cubic-bezier(.2,.7,.2,1);
+    }
+    .card[data-flipped="true"] .inner{transform:rotateY(180deg)}
 
-    .card-inner {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      transition: transform 0.8s;
-      transform-style: preserve-3d;
-      border-radius: 18px;
+    .face{
+      position:absolute;inset:0;padding:0;border-radius:var(--radius);
+      backface-visibility:hidden;overflow:hidden;border:0;
+      display:flex;flex-direction:column;justify-content:flex-end
     }
+    .front{
+      background:linear-gradient(180deg, transparent 40%, rgba(0,0,0,.75) 100%),
+                 var(--panel-2);
+    }
+    .front img{
+      position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:contrast(1.05) saturate(1.05) grayscale(10%);
+    }
+    .name{
+      position:relative;background:rgba(0,0,0,.6);padding:12px 44px 12px 12px;
+      font-weight:500;letter-spacing:.4px;border-top:1px solid #222
+    }
+    .badge{
+      position:absolute;top:10px;left:10px;
+      background:linear-gradient(145deg, #ffef9a, #d2a400);
+      color:#000;font-weight:700;font-size:12px;padding:6px 10px;border-radius:999px;
+      border:1px solid rgba(0,0,0,.35);box-shadow:0 6px 14px rgba(0,0,0,.35)
+    }
+    .badge.vc{background:linear-gradient(145deg, #f7f1c6, #bba24b)}
 
-    /* Hover: bring card to front */
-    .card:hover {
-      z-index: 10;
-      transform: scale(1.05);
+    .back{
+      transform:rotateY(180deg);
+      background:var(--panel);
+      padding:14px 14px 8px 14px;
+      display:flex;flex-direction:column;gap:6px;overflow:auto
     }
+    .back h3{margin:2px 0 4px;font-size:1.05rem}
+    .meta{display:flex;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:.9rem}
+    .meta span{background:#0e0e0e;border:1px solid var(--ring);padding:6px 10px;border-radius:999px}
+    .bio{color:#d9d9d9;font-size:.9rem;line-height:1.35}
+    .flip-btn{
+      position:absolute;right:10px;bottom:10px;z-index:5;
+      background:transparent;border:1px solid var(--ring);color:var(--text);
+      padding:6px 10px;border-radius:10px;cursor:pointer;font-size:12px
+    }
+    .flip-btn:hover{border-color:var(--gold)}
+    /* Accessibility helper for keyboard users */
+    .card:focus-within{outline:2px solid var(--gold);outline-offset:2px}
 
-    .card:hover .card-inner {
-      transform: rotateY(180deg);
-    }
-
-    .card-front, .card-back {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        backface-visibility: hidden;
-        border-radius: 18px;
-        overflow: hidden;
-        box-shadow: 0 8px 25px rgba(0,0,0,0.8);
-        border: none; 
-        transition: all 0.3s ease;
-    }
-
-    .card-front {
-      background-color: #1a1a1a;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      border: 1px solid #222;
-    }
-
-    .card-front img {
-      width: 100%;
-      height: 80%;
-      object-fit: contain;
-      filter: grayscale(20%) contrast(1.1);
-    }
-
-    .player-name {
-      background-color: #111;
-      color: #f5f5f5;
-      padding: 12px;
-      font-size: 1.05em;
-      text-align: center;
-      font-weight: 500;
-      letter-spacing: 0.5px;
-    }
-
-    .card-back {
-      background-color: #111;
-      color: #fff;
-      transform: rotateY(180deg);
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: justify;
-      padding: 15px;
-      border: 1px solid white;
-      box-sizing: border-box;
-      text-align: center;
-      font-size: 0.85em;
-      line-height: 1.3em;
-      overflow: hidden;       /* Hide overflow */
-      word-wrap: break-word;  /* Break long text */
-      overflow-y: auto;
-    }
-
-    .card-back h3 {
-      margin: 10px 0 8px;
-      font-size: 1.2em;
-      font-weight: 600;
-      color: #f5f5f5;
-    }
-
-    .card-back p {
-      font-size: 0.9em;
-      margin: 3px 0;
-      color: #cfcfcf;
-    }
-
-    /* Captain Highlight */
-    .captain .card-front,
-    .vice-captain .card-front {
-        border: 3px solid #FFD700 !important;
-    }
+    /* Footer */
+    footer{max-width:1400px;margin:20px auto 40px;padding:0 24px;color:#bfbfbf;font-size:13px;text-align:center}
   </style>
 </head>
 <body>
-  <h1>MSU Cricket Student Association - Team</h1>
-  
-  <div class="team-section">
-
-    <!-- Captain & Vice-Captain -->
-    <div class="team-row">
-      <div class="card captain">
-        <div class="card-inner">
-          <div class="card-front">
-            <img src="/Users/tanushzutshi/Downloads/Saad.JPG" alt="Player 1">
-            <div class="player-name">Saad Mahmood</div>
-          </div>
-          <div class="card-back">
-            <h3>Player 1</h3>
-            <p>Country: Pakistan</p>
-            <p>Position: Batting all-rounder</p>
-            <p>Saad, originally from Lahore, Pakistan is the new captain of the MSU cricket team for the 2025-26 season.
-            He joined the team in his freshman year, 2022-23 season and slowly solidifed his place in the squad by showing
-            true grit and passion for cricket. His tactial thinking and strong leadership have taken the team to new heights
-            by setting records which seemed impossible, such as setting the target of 270. Now marking the start of his senior 
-            year and captaincy, he leads his 15-man squad from the forefront to the many championships that lie ahead in this season.</p>
-          </div>
-        </div>
+  <header>
+    <div class="wrap">
+      <div class="brand">
+        <h1>MSU Cricket Student Association — Team</h1>
       </div>
 
-      <div class="card vice-captain">
-        <div class="card-inner">
-          <div class="card-front">
-            <img src="/Photos/Arhaan.jpg" alt="Player 2">
-            <div class="player-name">Arhaan Parikh</div>
-          </div>
-          <div class="card-back">
-            <h3>Player 2</h3>
-            <p>Country: India and UAE</p>
-            <p>Position: All-rounder</p>
-            <p>History: Arhaan, from Dubai, United Arab Emirates is the new vice captain of the MSU cricket team for the 2025-26 season.
-            He marked his strong start in the team with his highlight performances at the National College Cricket Association 2024-25 
-            regional tournament, in Ohio, with one of the highest player points in the tournament while being the youngest. His remarkable half 
-            century against Troy Tigers and match winning 45 against Greater Detroit Cricket Club in the Friendship Cup 2025 truly highlight the kind
-            of talent he is. His ability to bring the whole team together and undeniable skill as a pure all-rounder led him to his position as 
-            Vice Captain.</p>
-          </div>
+      <div class="tools">
+        <div class="search" role="search">
+          <input id="q" type="search" placeholder="Search by name, role, or country…" aria-label="Search players" />
+        </div>
+        <div class="filters" aria-label="Quick filters">
+          <button class="chip active" data-filter="all">All</button>
+          <button class="chip" data-filter="batsman">Batters</button>
+          <button class="chip" data-filter="bowler">Bowlers</button>
+          <button class="chip" data-filter="allrounder">All-rounders</button>
+          <button class="chip" data-filter="keeper">Wicketkeepers</button>
         </div>
       </div>
     </div>
+  </header>
 
-    <!-- Team Members -->
-    <div class="team-row">
+  <main>
+    <section class="grid" id="teamGrid">
 
-      <div class="card"><div class="card-inner"><div class="card-front">
-        <img src="images/player3.jpg" alt="Player 3"><div class="player-name">Adarsh Vatts</div>
-      </div><div class="card-back"><h3>Player 3</h3><p>Country: India</p><p>Position: Batsman</p>
-      <p>History: Adarsh, originally from Uttar Pradesh, India is the highest run scorer of MSU Cricket. His highlight captaincy
-      season 2024-25 marked the beginning of a new era for the MSU Club Cricket Team after 4 years of not winning any games. Adarsh with his
-      domestic cricket experience from India brought structure into a team that was once all over the place. His achievements as captain also
-      include being runners-up in the Michigan College Cricket Tournament and NCCA regional tournament, bringing home our first trophy in 7 long
-      years. Adarsh's ability to take charge and deal with pressure such as in the NCCA against University Of Michigan while chasing with 
-      less wickets in hand all while battling sickness truly showed the team what pure grit and leadership can do.
-      </p></div></div></div>
+      <!-- Captain -->
+      <article class="card" tabindex="0" data-role="allrounder" data-name="Saad Mahmood" data-country="Pakistan">
+        <div class="inner">
+          <div class="face front">
+            <img src="/Users/tanushzutshi/Downloads/Saad.JPG" alt="Saad Mahmood — captain" loading="lazy">
+            <span class="badge">CAPTAIN</span>
+            <div class="name">Saad Mahmood</div>
+            <button class="flip-btn" aria-label="View details">Details</button>
+          </div>
+          <div class="face back">
+            <h3>Saad Mahmood</h3>
+            <div class="meta">
+              <span>Pakistan</span><span>Batting all-rounder</span>
+            </div>
+            <p class="bio">Saad became captain for the 2025–26 season after standout performances and consistent leadership since joining in 2022–23. Tactical and composed, he led MSU to record totals, including a 270 target, and now guides a 15-man squad into the new season.</p>
+            <button class="flip-btn" aria-label="Back to photo">Back</button>
+          </div>
+        </div>
+      </article>
 
-      <div class="card"><div class="card-inner"><div class="card-front">
-        <img src="images/player4.jpg" alt="Player 4"><div class="player-name">Tanush Zutshi</div>
-      </div><div class="card-back"><h3>Player 4</h3><p>Country: India</p><p>Position: Batsman</p>
-      <p>History: Tanush, originally from Haryana, India is marking the start of his third season with the MSU Cricket Club in 2025-26.
-      Tanush is an experienced top-order batsman who has played hard ball in India before, and brought over the experience to contribute to 
-      the cricket club. His standout performances are during the NCCA tournament 2024-25 where he helped MSU qualify for the finals within half 
-      an innings and then to play an innings stabilising knock to give MSU a good start in the finals. His involvement with the newer players and 
-      welcoming nature also make him a crucial member of the team.
-      </p></div></div></div>
+      <!-- Vice Captain -->
+      <article class="card" tabindex="0" data-role="allrounder" data-name="Arhaan Parikh" data-country="India UAE">
+        <div class="inner">
+          <div class="face front">
+            <img src="/Photos/Arhaan.jpg" alt="Arhaan Parikh — vice captain" loading="lazy">
+            <span class="badge vc">VICE CAPTAIN</span>
+            <div class="name">Arhaan Parikh</div>
+            <button class="flip-btn" aria-label="View details">Details</button>
+          </div>
+          <div class="face back">
+            <h3>Arhaan Parikh</h3>
+            <div class="meta">
+              <span>India &amp; UAE</span><span>All-rounder</span>
+            </div>
+            <p class="bio">Breakout performances at NCCA 2024–25 and the Friendship Cup (match-winning 45) earned Arhaan the VC role. A unifier with high ceiling as a genuine all-rounder.</p>
+            <button class="flip-btn" aria-label="Back to photo">Back</button>
+          </div>
+        </div>
+      </article>
 
-      <div class="card"><div class="card-inner"><div class="card-front">
-        <img src="images/player5.jpg" alt="Player 5"><div class="player-name">Manish Kumar</div>
-      </div><div class="card-back"><h3>Player 5</h3><p>Country: India</p><p>Position: Opening batsman</p>
-      <p>History: Manish, originally from Haryana, India is starting his second season with the MSU Cricket Club in 2025-26.
-      Manish is one of our most experienced right handed batsman who has changed the face of opening batting in our team. With his explosive starts
-      in the powerplay and accurate timing with the bat, he makes sure that all bad balls get punished. His standout performance from his first season
-      was in the Michigan College Cricket Tournament where he won Most Valuable Player award in his first ever tournament with us. Other contributions 
-      include amazing bowling performances with the new ball in the Friendship Cup 2025 tournament and the NCCA regionals. 
-      </p></div></div></div>
+      <!-- Example player cards (trimmed bios for readability). Replace image paths as needed. -->
+      <article class="card" tabindex="0" data-role="batsman" data-name="Adarsh Vatts" data-country="India">
+        <div class="inner">
+          <div class="face front">
+            <img src="images/player3.jpg" alt="Adarsh Vatts" loading="lazy">
+            <div class="name">Adarsh Vatts</div>
+            <button class="flip-btn" aria-label="View details">Details</button>
+          </div>
+          <div class="face back">
+            <h3>Adarsh Vatts</h3>
+            <div class="meta"><span>India</span><span>Top-order batsman</span></div>
+            <p class="bio">MSU’s leading run-scorer and catalyst of the 2024–25 turnaround—finalist runs at NCCA and MCC, with clutch chases against UM.</p>
+            <button class="flip-btn" aria-label="Back to photo">Back</button>
+          </div>
+        </div>
+      </article>
 
-      <div class="card"><div class="card-inner"><div class="card-front">
-        <img src="images/player6.jpg" alt="Player 6"><div class="player-name">Dev Jariwala</div>
-      </div><div class="card-back"><h3>Player 6</h3><p>Country: USA</p><p>Position: Opening Batsman</p>
-      <p>History: Dev, originally from Michigan, USA is starting his second season with the MSU Cricket Club in 2025-26.
-      Dev is the backbone of the Spartans Cricket Team and one of the most talented young crickters to come from the state of Michigan. His batting style 
-      is a mix of pure technique ,impeccable timing, and the ability to punish the best bowlers. Dev's adaptive batting style has proven to be his most 
-      helpful skill for the team helping us in crunch situations while putting up a stabilising knock in the NCCA regionals in 2024-25 against University
-      of Michigan in a nail biting run chase. Not only this, but his contribution in the Friendship Cup towards our highest ever team total of 270 was of 
-      97 runs which came just shy of 60 balls, truly highlighting the batting talent he has.
-      </p></div></div></div>
+      <article class="card" tabindex="0" data-role="batsman" data-name="Tanush Zutshi" data-country="India">
+        <div class="inner">
+          <div class="face front">
+            <img src="images/player4.jpg" alt="Tanush Zutshi" loading="lazy">
+            <div class="name">Tanush Zutshi</div>
+            <button class="flip-btn" aria-label="View details">Details</button>
+          </div>
+          <div class="face back">
+            <h3>Tanush Zutshi</h3>
+            <div class="meta"><span>India</span><span>Batsman</span></div>
+            <p class="bio">Reliable top-order anchor; key innings at NCCA 2024–25 (qualifier and final), and a mentor for new talent.</p>
+            <button class="flip-btn" aria-label="Back to photo">Back</button>
+          </div>
+        </div>
+      </article>
 
-      <div class="card"><div class="card-inner"><div class="card-front">
-        <img src="images/player7.jpg" alt="Player 7"><div class="player-name">Sameer Malik</div>
-      </div><div class="card-back"><h3>Player 7</h3><p>Country: Pakistan</p><p>Position: Wicketkeeper-batsman</p>
-      <p>History: Sameer, originally from Michigan, USA -born in Lahore, Pakistan- is starting his sixth season with the MSU Cricket Club in 2025-26.
-      Sameer is the one of the most experienced crickters to be playing for the club. His sharp mind and extreme athletic abilties help him with his wicketkeeping
-      which he is excellent at. His former leadership with the Spartans Cricket Team and ability to lead the team , on and off, the field are both praiseworthy. 
-      His standout performances are against LTU Blue Devils in 2023-24 season where he almost single handedly helped in the run chase. His pure talent has 
-      helped him play in the Midwest Premier League with big names such as Unmukt Chand. 
-      </p></div></div></div>
+      <article class="card" tabindex="0" data-role="batsman" data-name="Manish Kumar" data-country="India">
+        <div class="inner">
+          <div class="face front">
+            <img src="images/player5.jpg" alt="Manish Kumar" loading="lazy">
+            <div class="name">Manish Kumar</div>
+            <button class="flip-btn" aria-label="View details">Details</button>
+          </div>
+          <div class="face back">
+            <h3>Manish Kumar</h3>
+            <div class="meta"><span>India</span><span>Opening batsman</span></div>
+            <p class="bio">Explosive PP striker; MCC MVP as a first-year, plus valuable new-ball spells at Friendship Cup and NCCA regionals.</p>
+            <button class="flip-btn" aria-label="Back to photo">Back</button>
+          </div>
+        </div>
+      </article>
 
-      <div class="card"><div class="card-inner"><div class="card-front">
-        <img src="images/player8.jpg" alt="Player 8"><div class="player-name">Dhimaan Bhattacharya</div>
-      </div><div class="card-back"><h3>Player 8</h3><p>Country: United Arab Emirates</p><p>Position: Bowling all-rounder</p>
-      <p>History: Dhimaan, originally from Dubai, United Arab Emirates is starting his fourth season with the MSU Cricket Club in 2025-26.
-      Dhimaan is the most experienced medium pacer in the Spartans Crickt Club and has proven to be an active member through all the seasons. His leadership and
-      open hearted nature help him be the go to senior amongst the team for all newcomers. His standout performances invlolve the semi-final game in the Michiagn
-      College Cricket Tournament 2024-25, where he won man of the match for excellent performance with both bat and ball. His fierce speed and ability to bat 
-      make him a key contributor in the team.
-      </p></div></div></div>
+      <article class="card" tabindex="0" data-role="batsman" data-name="Dev Jariwala" data-country="USA">
+        <div class="inner">
+          <div class="face front">
+            <img src="images/player6.jpg" alt="Dev Jariwala" loading="lazy">
+            <div class="name">Dev Jariwala</div>
+            <button class="flip-btn" aria-label="View details">Details</button>
+          </div>
+          <div class="face back">
+            <h3>Dev Jariwala</h3>
+            <div class="meta"><span>USA</span><span>Opening batsman</span></div>
+            <p class="bio">Technique + tempo. 97 off ~60 at Friendship Cup sparked MSU’s highest total; calm chases at NCCA vs UM.</p>
+            <button class="flip-btn" aria-label="Back to photo">Back</button>
+          </div>
+        </div>
+      </article>
 
-      <div class="card"><div class="card-inner"><div class="card-front">
-        <img src="images/player9.jpg" alt="Player 9"><div class="player-name">Sahil Sharma</div>
-      </div><div class="card-back"><h3>Player 9</h3><p>Country: United Arab Emirates</p><p>Position: Right-arm medium</p>
-      <p>History: Sahil, originally from Dubai, United Arab Emirates is starting his third season with the MSU Cricket Club in 2025-26.
-      Sahil is one of the opening bowlers for the Spartans Cricket Team and has proven to be a key to a good start. His ability to swing the ball in both directions
-      truly highligh is potential as a bowler. The story of his return after suffering an ACL tear in his first season is nothing short of inspiring, and his comeback
-      performance in the NCCA regionals in 2024-25 truly makes him one of our key bowlers.
-      </p></div></div></div>
+      <article class="card" tabindex="0" data-role="keeper" data-name="Sameer Malik" data-country="USA Pakistan">
+        <div class="inner">
+          <div class="face front">
+            <img src="images/player7.jpg" alt="Sameer Malik" loading="lazy">
+            <div class="name">Sameer Malik</div>
+            <button class="flip-btn" aria-label="View details">Details</button>
+          </div>
+          <div class="face back">
+            <h3>Sameer Malik</h3>
+            <div class="meta"><span>USA / Pakistan</span><span>Wicketkeeper-batsman</span></div>
+            <p class="bio">Sixth season vet; leadership pedigree and MPCL experience. Clutch chase vs LTU in 2023–24.</p>
+            <button class="flip-btn" aria-label="Back to photo">Back</button>
+          </div>
+        </div>
+      </article>
 
-      <div class="card"><div class="card-inner"><div class="card-front">
-        <img src="/Photos/Krrish.jpeg" alt="Player 10"><div class="player-name">Krrish Seth</div>
-      </div><div class="card-back"><h3>Player 10</h3><p>Country: India</p><p>Position: Bowling All-rounder</p>
-      <p>History: Krrish, originally from Delhi, India is starting his third season with the MSU Cricket Club in 2025-26. Krrish is a death over bowler who can get the 
-      ball to swing in both the early and later stages of the game. He brings to the team his experience of playing cricket in Delhi in the U-16 age group in a high 
-      competition pool. His standout performance was in Friendship Cup 2025 where his death over against Troy Tigers helped us seal our victory and his fielding efforts made 
-      sure that the Spartans had the higher ground.
-      </p></div></div></div>
+      <article class="card" tabindex="0" data-role="allrounder" data-name="Dhimaan Bhattacharya" data-country="UAE">
+        <div class="inner">
+          <div class="face front">
+            <img src="images/player8.jpg" alt="Dhimaan Bhattacharya" loading="lazy">
+            <div class="name">Dhimaan Bhattacharya</div>
+            <button class="flip-btn" aria-label="View details">Details</button>
+          </div>
+          <div class="face back">
+            <h3>Dhimaan Bhattacharya</h3>
+            <div class="meta"><span>UAE</span><span>Bowling all-rounder</span></div>
+            <p class="bio">Senior seamer with leadership presence; MCC 2024–25 semi-final MOTM (bat + ball).</p>
+            <button class="flip-btn" aria-label="Back to photo">Back</button>
+          </div>
+        </div>
+      </article>
 
-      <div class="card"><div class="card-inner"><div class="card-front">
-        <img src="images/player11.jpg" alt="Player 11"><div class="player-name">Aaryan Jaju</div>
-      </div><div class="card-back"><h3>Player 11</h3><p>Country: India</p><p>Position: Left-arm orthodox</p>
-      <p>History: Aaryan, originally from Hyderabad, India is starting his third season with the MSU Cricket Club in 2025-26. Aaryan is a left-arm orthodox bowler whose ability 
-      to trick batsmen with his spin is spectacular. He is a seasoned cricketer who has played since a very young age, being involved in Telengana's Cricket Association. His return
-      to the Spartans Cricket Team after a fracture in his bowling hand after almost a full season is nothing short of inspiring as he delivered match winning bowling performances
-      with just his raw talent and sharp mind. His standout performance although was in the Michigan College Cricket Tournament 2023-24, where his bowling led him to dismantling opposition
-      batting line ups within a matter of a few overs. 
-      </p></div></div></div>
+      <article class="card" tabindex="0" data-role="bowler" data-name="Sahil Sharma" data-country="UAE">
+        <div class="inner">
+          <div class="face front">
+            <img src="images/player9.jpg" alt="Sahil Sharma" loading="lazy">
+            <div class="name">Sahil Sharma</div>
+            <button class="flip-btn" aria-label="View details">Details</button>
+          </div>
+          <div class="face back">
+            <h3>Sahil Sharma</h3>
+            <div class="meta"><span>UAE</span><span>Right-arm medium</span></div>
+            <p class="bio">New-ball swing both ways; inspiring ACL comeback capped with key spells at NCCA 2024–25.</p>
+            <button class="flip-btn" aria-label="Back to photo">Back</button>
+          </div>
+        </div>
+      </article>
 
-      <div class="card"><div class="card-inner"><div class="card-front">
-        <img src="images/player12.jpg" alt="Player 12"><div class="player-name">Nirav Batlada</div>
-      </div><div class="card-back"><h3>Player 12</h3><p>Country: USA</p><p>Position: Middle order batsman</p>
-      <p>History: Placeholder</p></div></div></div>
+      <article class="card" tabindex="0" data-role="allrounder" data-name="Krrish Seth" data-country="India">
+        <div class="inner">
+          <div class="face front">
+            <img src="/Photos/Krrish.jpg" alt="Krrish Seth" loading="lazy">
+            <div class="name">Krrish Seth</div>
+            <button class="flip-btn" aria-label="View details">Details</button>
+          </div>
+          <div class="face back">
+            <h3>Krrish Seth</h3>
+            <div class="meta"><span>India</span><span>Bowling all-rounder</span></div>
+            <p class="bio">Death-overs specialist with late swing. Friendship Cup 2025: decisive final over vs Troy + high-impact fielding.</p>
+            <button class="flip-btn" aria-label="Back to photo">Back</button>
+          </div>
+        </div>
+      </article>
 
-      <div class="card"><div class="card-inner"><div class="card-front">
-        <img src="images/player13.jpg" alt="Player 13"><div class="player-name">Aditya Kahlon</div>
-      </div><div class="card-back"><h3>Player 13</h3><p>Country: Placeholder</p><p>Position: All-rounder</p>
-      <p>History: Aditya, originally from Chandigarh, India is starting his first ever season with the MSU Cricket Club in 2025-26. He has previously played quality high school cricket, and 
-      is a promising signing for the Spartans Cricket Team. </p></div></div></div>
+      <article class="card" tabindex="0" data-role="bowler" data-name="Aaryan Jaju" data-country="India">
+        <div class="inner">
+          <div class="face front">
+            <img src="images/player11.jpg" alt="Aaryan Jaju" loading="lazy">
+            <div class="name">Aaryan Jaju</div>
+            <button class="flip-btn" aria-label="View details">Details</button>
+          </div>
+          <div class="face back">
+            <h3>Aaryan Jaju</h3>
+            <div class="meta"><span>India</span><span>Left-arm orthodox</span></div>
+            <p class="bio">Guileful spinner with Telangana roots; dismantled lineups at MCC 2023–24 and returned strong after hand fracture.</p>
+            <button class="flip-btn" aria-label="Back to photo">Back</button>
+          </div>
+        </div>
+      </article>
 
-      <div class="card"><div class="card-inner"><div class="card-front">
-        <img src="images/player14.jpg" alt="Player 14"><div class="player-name">Harinder Ka Beta</div>
-      </div><div class="card-back"><h3>Player 14</h3><p>Country: Placeholder</p><p>Position: Placeholder</p><p>History: Placeholder</p></div></div></div>
+      <!-- Add remaining players similarly... -->
+      <article class="card" tabindex="0" data-role="batsman" data-name="Nirav Batlada" data-country="USA">
+        <div class="inner">
+          <div class="face front">
+            <img src="images/player12.jpg" alt="Nirav Batlada" loading="lazy">
+            <div class="name">Nirav Batlada</div>
+            <button class="flip-btn" aria-label="View details">Details</button>
+          </div>
+          <div class="face back">
+            <h3>Nirav Batlada</h3>
+            <div class="meta"><span>USA</span><span>Middle-order batsman</span></div>
+            <p class="bio">Profile coming soon.</p>
+            <button class="flip-btn" aria-label="Back to photo">Back</button>
+          </div>
+        </div>
+      </article>
 
-      <div class="card"><div class="card-inner"><div class="card-front">
-        <img src="images/player15.jpg" alt="Player 15"><div class="player-name">Aryan Rose</div>
-      </div><div class="card-back"><h3>Player 15</h3><p>Country: Placeholder</p><p>Position: Placeholder</p><p>History: Placeholder</p></div></div></div>
+      <article class="card" tabindex="0" data-role="allrounder" data-name="Aditya Kahlon" data-country="India">
+        <div class="inner">
+          <div class="face front">
+            <img src="images/player13.jpg" alt="Aditya Kahlon" loading="lazy">
+            <div class="name">Aditya Kahlon</div>
+            <button class="flip-btn" aria-label="View details">Details</button>
+          </div>
+          <div class="face back">
+            <h3>Aditya Kahlon</h3>
+            <div class="meta"><span>India</span><span>All-rounder</span></div>
+            <p class="bio">First season Spartan with strong HS pedigree; versatile skills to watch.</p>
+            <button class="flip-btn" aria-label="Back to photo">Back</button>
+          </div>
+        </div>
+      </article>
 
-    </div>
-  </div>
+      <article class="card" tabindex="0" data-role="batsman" data-name="Harinder Ka Beta" data-country="—">
+        <div class="inner">
+          <div class="face front">
+            <img src="images/player14.jpg" alt="Harinder Ka Beta" loading="lazy">
+            <div class="name">Harinder Ka Beta</div>
+            <button class="flip-btn" aria-label="View details">Details</button>
+          </div>
+          <div class="face back">
+            <h3>Harinder Ka Beta</h3>
+            <div class="meta"><span>—</span><span>—</span></div>
+            <p class="bio">Profile coming soon.</p>
+            <button class="flip-btn" aria-label="Back to photo">Back</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" tabindex="0" data-role="batsman" data-name="Aryan Rose" data-country="—">
+        <div class="inner">
+          <div class="face front">
+            <img src="images/player15.jpg" alt="Aryan Rose" loading="lazy">
+            <div class="name">Aryan Rose</div>
+            <button class="flip-btn" aria-label="View details">Details</button>
+          </div>
+          <div class="face back">
+            <h3>Aryan Rose</h3>
+            <div class="meta"><span>—</span><span>—</span></div>
+            <p class="bio">Profile coming soon.</p>
+            <button class="flip-btn" aria-label="Back to photo">Back</button>
+          </div>
+        </div>
+      </article>
+
+    </section>
+  </main>
+
+  <footer>© 2025 MSU Cricket Student Association</footer>
+
+  <script>
+    // flip buttons (mouse + keyboard)
+    document.querySelectorAll('.card').forEach(card=>{
+      const btns = card.querySelectorAll('.flip-btn');
+      btns.forEach(btn=>{
+        btn.addEventListener('click', e=>{
+          e.stopPropagation();
+          const flipped = card.getAttribute('data-flipped') === 'true';
+          card.setAttribute('data-flipped', !flipped);
+        });
+      });
+      card.addEventListener('keydown', e=>{
+        if(e.key==='Enter' || e.key===' '){
+          e.preventDefault();
+          const flipped = card.getAttribute('data-flipped') === 'true';
+          card.setAttribute('data-flipped', !flipped);
+        }
+        if(e.key==='Escape'){ card.setAttribute('data-flipped','false'); }
+      });
+    });
+
+    // search + filters
+    const q = document.getElementById('q');
+    const chips = document.querySelectorAll('.chip');
+    let currentFilter = 'all';
+
+    function applyFilters(){
+      const term = (q.value||'').toLowerCase().trim();
+      document.querySelectorAll('#teamGrid .card').forEach(card=>{
+        const role = card.dataset.role;
+        const name = card.dataset.name.toLowerCase();
+        const country = card.dataset.country.toLowerCase();
+        const roleMatch = currentFilter==='all' || role===currentFilter;
+        const textMatch = !term || name.includes(term) || country.includes(term) || role.includes(term);
+        card.style.display = (roleMatch && textMatch) ? '' : 'none';
+      });
+    }
+    q.addEventListener('input', applyFilters);
+    chips.forEach(c=>{
+      c.addEventListener('click', ()=>{
+        chips.forEach(x=>x.classList.remove('active'));
+        c.classList.add('active');
+        currentFilter = c.dataset.filter;
+        applyFilters();
+      });
+    });
+  </script>
 </body>
 </html>
-
