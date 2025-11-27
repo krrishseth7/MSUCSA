@@ -9,6 +9,98 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
+    /* --- MOBILE + TABLET OPTIMIZATION FOR ACHIEVEMENTS PAGE --- */
+
+/* Large tablets and small laptops */
+@media (max-width: 1020px) {
+  h1 {
+    font-size: 2.4rem;
+  }
+  .achievements {
+    width: 95%;
+  }
+  .card {
+    padding: 24px 28px;
+  }
+}
+
+/* Standard mobile screens (iPhone, Android) */
+@media (max-width: 700px) {
+
+  body {
+    padding: 40px 14px;
+  }
+
+  h1 {
+    font-size: 2rem;
+    letter-spacing: 2px;
+    margin-bottom: 40px;
+  }
+
+  .achievements {
+    gap: 32px;
+  }
+
+  .card {
+    flex-direction: column;
+    text-align: center;
+    padding: 26px 20px;
+  }
+
+  .text {
+    margin-right: 0;
+    margin-bottom: 16px;
+  }
+
+  .title {
+    font-size: 1.3rem;
+  }
+
+  .desc {
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+
+  .photo {
+    width: 120px;
+    height: 120px;
+  }
+
+  .divider {
+    width: 80%;
+    margin: 40px auto;
+  }
+}
+
+/* Small phones (iPhone SE, compact devices) */
+@media (max-width: 420px) {
+
+  body {
+    padding: 34px 12px;
+  }
+
+  h1 {
+    font-size: 1.7rem;
+  }
+
+  .title {
+    font-size: 1.15rem;
+  }
+
+  .desc {
+    font-size: 0.88rem;
+  }
+
+  .photo {
+    width: 105px;
+    height: 105px;
+  }
+
+  .card {
+    padding: 20px 16px;
+  }
+}
+
     :root{
       --bg:#000; --panel:#111; --panel-2:#0c0c0c; --text:#eee; --muted:#b7b7b7;
       --brand:#09ffca; --border:#262626; --error:#ff5a5a; --ok:#0f1f1b; --ok-border:#1f3d34;
