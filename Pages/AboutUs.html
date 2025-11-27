@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <title>About • MSU Cricket Association</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -15,287 +17,308 @@
       --muted:#c9c9cf;
       --line:#1a1a1a;
       --card:#0a0a0a;
-      --accent:#09ffca; /* your button cyan */
+      --accent:#09ffca;
       --accent-dim:rgba(9,255,202,.15);
       --ring:rgba(255,255,255,.06);
     }
 
     *{box-sizing:border-box}
-    html,body{margin:0;background:var(--bg);color:var(--text)}
+    html,body{margin:0;background:var(--bg);color:var(--text);}
     body{
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      -webkit-font-smoothing:antialiased;
     }
 
     a{color:inherit;text-decoration:none}
-    img{max-width:100%;display:block}
+    img{max-width:100%;display:block;}
 
-    /* Layout */
-    .container{max-width:1120px;margin-inline:auto;padding:28px 20px}
-    .grid{display:grid;gap:24px}
-    .section{padding-block:56px;border-top:1px solid var(--line)}
-    .section:first-of-type{border-top:none}
+    .container{max-width:1120px;margin-inline:auto;padding:28px 20px;}
+    .grid{display:grid;gap:24px;}
 
-    /* Header (simple, consistent with your theme) */
+    /* HEADER WITH HAMBURGER */
     header{
-      padding:18px 0;border-bottom:1px solid var(--line);
-      position:sticky;top:0;background:rgba(0,0,0,.6);backdrop-filter:saturate(140%) blur(8px);
-      z-index:10;
-    }
-    .brand{display:flex;align-items:center;gap:14px}
-    .brand img{width:56px;height:56px;object-fit:contain;filter:grayscale(100%)}
-    .brand h1{
-      font-family:"Playfair Display", serif;font-weight:800;letter-spacing:.3px;margin:0;
-      line-height:1.05;font-size:22px
+      padding:18px 0;
+      border-bottom:1px solid var(--line);
+      position:sticky;
+      top:0;
+      background:rgba(0,0,0,.70);
+      backdrop-filter:saturate(140%) blur(10px);
+      z-index:20;
     }
 
-    /* Hero */
-    .hero{padding-block:64px}
+    .header-inner{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding-inline:20px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
+
+    .brand img{
+      width:56px;height:56px;
+      object-fit:contain;
+    }
+
+    .brand h1{
+      font-family:"Playfair Display", serif;
+      font-weight:800;
+      letter-spacing:.3px;
+      margin:0;
+      font-size:22px;
+    }
+
+    /* Hamburger menu */
+    .menu-icon{
+      cursor:pointer;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+    .menu-icon div{
+      width:32px;
+      height:4px;
+      background:white;
+      border-radius:2px;
+      transition:0.3s;
+    }
+
+    /* Dropdown menu */
+    .mobile-menu{
+      display:none;
+      flex-direction:column;
+      position:absolute;
+      top:75px;
+      right:20px;
+      background:#111;
+      padding:20px;
+      border-radius:12px;
+      box-shadow:0 4px 12px rgba(255,255,255,0.12);
+      z-index:2000;
+      border:1px solid #222;
+    }
+    .mobile-menu a{
+      padding:10px 0;
+      font-size:16px;
+      color:white;
+    }
+    .mobile-menu a:hover{
+      color:#09ffca;
+    }
+
+    /* HERO */
+    .hero{padding-block:64px;}
     .eyebrow{
-      font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);
-      margin-bottom:14px;display:inline-block;opacity:.9
+      font-size:12px;
+      letter-spacing:.28em;
+      text-transform:uppercase;
+      color:var(--muted);
+      margin-bottom:14px;
+      display:inline-block;
     }
     .title{
-      font-family:"Playfair Display", serif;font-weight:900;font-size:clamp(36px,6vw,74px);
-      line-height:1.02;margin:0 0 18px;letter-spacing:.2px;
+      font-family:"Playfair Display", serif;
+      font-weight:900;
+      font-size:clamp(36px,6vw,74px);
+      margin:0 0 20px;
     }
     .kline{
-      position:relative;display:inline-block;
-      background:linear-gradient(to right, var(--accent), transparent 60%);
-      background-size:0% 2px;background-position:0 100%;background-repeat:no-repeat;
-      transition:background-size .7s cubic-bezier(.2,.8,.2,1);
+      background:linear-gradient(to right,var(--accent),transparent 60%);
+      background-size:0% 2px;
+      background-repeat:no-repeat;
+      background-position:0 100%;
+      transition:.5s ease;
     }
-    .kline:hover{background-size:100% 2px}
-    .lede{color:#d7d7dd;max-width:800px;font-size:18px;line-height:1.65;margin:0}
+    .kline:hover{background-size:100% 2px;}
 
-    /* Values marquee */
+    .lede{
+      max-width:780px;
+      font-size:18px;
+      line-height:1.65;
+      color:#dcdce0;
+    }
+
+    /* MARQUEE */
     .marquee-wrap{
-      overflow:hidden;border:1px solid var(--line);border-radius:14px;background:linear-gradient(180deg,#050505,#090909);
-      margin-top:28px
+      overflow:hidden;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:linear-gradient(#050505,#0b0b0b);
+      margin-top:28px;
     }
     .marquee{
-      display:flex;gap:32px;white-space:nowrap;animation:scroll 28s linear infinite;
-      padding:14px 18px;color:#bfbfc7;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+      display:flex;
+      gap:32px;
+      white-space:nowrap;
+      animation:scroll 28s linear infinite;
+      padding:14px 18px;
+      font-weight:600;
+      color:#c5c5cb;
     }
     .pill{
-      border:1px solid var(--ring);border-radius:999px;padding:8px 14px;background:rgba(255,255,255,.02)
+      border:1px solid var(--ring);
+      padding:8px 14px;
+      border-radius:999px;
     }
     @keyframes scroll{
-      0%{transform:translateX(0)}
-      100%{transform:translateX(-50%)}
+      from{transform:translateX(0)}
+      to{transform:translateX(-50%)}
     }
 
     /* Stats */
-    .stats{grid-template-columns:repeat(4,minmax(0,1fr))}
+    .stats{grid-template-columns:repeat(4,1fr);}
     .card{
-      background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.008));
-      border:1px solid var(--ring);border-radius:16px;padding:22px;
-      transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
-      box-shadow:0 10px 24px rgba(0,0,0,.35);
+      background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.01));
+      padding:22px;
+      border:1px solid var(--ring);
+      border-radius:16px;
+      transition:.2s;
+      text-align:center;
     }
-    .card:hover{transform:translateY(-2px);border-color:var(--accent-dim);box-shadow:0 14px 32px rgba(0,0,0,.45)}
+    .card:hover{
+      transform:translateY(-2px);
+      border-color:var(--accent-dim);
+    }
     .stat{
-      font-family:"Playfair Display", serif;font-weight:800;font-size:clamp(28px,4vw,44px);margin:0;
+      font-family:"Playfair Display";
+      font-size:40px;
+      margin:0;
     }
-    .label{margin-top:6px;color:var(--muted);font-size:13px;letter-spacing:.12em;text-transform:uppercase}
+    .label{
+      margin-top:6px;
+      font-size:13px;
+      color:var(--muted);
+      text-transform:uppercase;
+      letter-spacing:.12em;
+    }
 
-    /* Mission block */
-    .mission{grid-template-columns:1.2fr .8fr;align-items:center}
-    .mission .big{
-      font-family:"Playfair Display", serif;font-size:clamp(22px,2.6vw,30px);line-height:1.4;margin:0 0 12px
+    /* Mission */
+    .mission{grid-template-columns:1.2fr .8fr;}
+    .big{
+      font-family:"Playfair Display";
+      font-size:28px;
+      margin-bottom:16px;
     }
-    .divider{height:1px;background:var(--line);margin:16px 0}
-    .points{display:grid;gap:10px}
-    .point{display:flex;gap:10px;align-items:flex-start}
-    .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);margin-top:7px}
-    .caption{color:#dcdce1}
+    .divider{
+      height:1px;
+      background:var(--line);
+      margin-block:18px;
+    }
+    .point{display:flex;gap:12px;}
+    .dot{
+      width:8px;height:8px;border-radius:50%;
+      background:var(--accent);margin-top:6px;
+    }
+    .caption{color:#d8d8dd;line-height:1.6;}
 
     /* Timeline */
-    .timeline{
-      position:relative;padding-left:20px
-    }
+    .timeline{padding-left:20px;position:relative;}
     .timeline::before{
-      content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(#222,#111)
+      content:"";position:absolute;left:0;top:0;bottom:0;width:2px;
+      background:linear-gradient(#222,#111);
     }
-    .event{padding:14px 0 14px 12px;border-left:2px solid transparent}
-    .event:hover{border-left-color:var(--accent-dim)}
-    .event h4{margin:0 0 6px;font-weight:700}
-    .event p{margin:0;color:#cfd0d6;line-height:1.6}
-    .time{color:var(--muted);font-size:12px;margin-bottom:6px;letter-spacing:.14em;text-transform:uppercase}
+    .event{padding:16px 0 16px 12px;border-left:2px solid transparent;}
+    .event:hover{border-left-color:var(--accent-dim);}
+    .time{font-size:12px;color:var(--muted);}
 
-    /* CTA strip */
+    /* CTA */
     .cta{
-      border:1px solid var(--line);border-radius:16px;padding:20px 22px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;
-      background:linear-gradient(180deg,#070707,#0b0b0b)
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:20px;
+      display:flex;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      gap:16px;
+      background:#0b0b0b;
     }
-    .cta h3{margin:0;font-family:"Playfair Display", serif;font-size:24px}
-    .actions{display:flex;gap:12px;flex-wrap:wrap}
     .btn{
-      display:inline-block;min-width:140px;text-align:center;padding:12px 18px;border-radius:8px;font-weight:700;font-size:15px;
-      border:1px solid #111;transition:transform .2s ease, box-shadow .2s ease, background .2s ease, color .2s ease;
+      padding:12px 18px;
+      border-radius:8px;
+      font-weight:700;
+      font-size:15px;
+      border:1px solid #111;
     }
-    .btn-primary{background:var(--accent);color:#111}
-    .btn-primary:hover{transform:translateY(-1px);box-shadow:0 10px 20px rgba(9,255,202,.18)}
-    .btn-ghost{background:transparent;border-color:var(--ring);color:var(--text)}
-    .btn-ghost:hover{background:rgba(255,255,255,.02)}
+    .btn-primary{
+      background:var(--accent);
+      color:#111;
+    }
+    .btn-primary:hover{
+      filter:brightness(.92);
+    }
+    .btn-ghost{
+      background:transparent;
+      border-color:var(--ring);
+    }
 
     /* Footer */
-    footer{padding:40px 0;color:var(--muted);text-align:center;border-top:1px solid var(--line);margin-top:48px}
-
-    /* Responsive */
-    @media (max-width:980px){
-      .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
-      .mission{grid-template-columns:1fr}
-    }
-    @media (max-width:520px){
-      .title{letter-spacing:.1px}
-      .cta{align-items:flex-start}
+    footer{
+      padding:40px 0;
+      text-align:center;
+      color:var(--muted);
+      border-top:1px solid var(--line);
+      margin-top:40px;
     }
 
-    /* Motion safety */
-    @media (prefers-reduced-motion:reduce){
-      .marquee{animation:none}
-      .kline{transition:none}
-      .card,.btn{transition:none}
+    /* MOBILE */
+    @media (max-width:900px){
+      .stats{grid-template-columns:repeat(2,1fr);}
+      .mission{grid-template-columns:1fr;}
     }
-    /* --- MOBILE OPTIMIZATION --- */
-
-/* Phones up to 768px */
-@media (max-width: 768px){
-
-  .container{
-    padding: 24px 16px;
-  }
-
-  header h1{
-    font-size: 18px;
-  }
-
-  .hero{
-    padding-block: 48px;
-  }
-
-  .title{
-    font-size: 32px;
-    line-height: 1.15;
-  }
-
-  .lede{
-    font-size: 16px;
-  }
-
-  .marquee{
-    font-size: 13px;
-    padding: 10px 14px;
-  }
-
-  .stats{
-    grid-template-columns: repeat(2, 1fr);
-    gap: 18px;
-  }
-
-  .mission{
-    grid-template-columns: 1fr;
-    gap: 28px;
-  }
-
-  .mission img{
-    width: 100%;
-    height: auto;
-  }
-
-  .big{
-    font-size: 22px !important;
-  }
-
-  .timeline{
-    padding-left: 14px;
-  }
-
-  .event{
-    padding: 12px 0 12px 10px;
-  }
-
-  .cta{
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-  }
-
-  .actions{
-    width: 100%;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .btn{
-    width: 100%;
-  }
-}
-
-/* Very small phones (iPhone SE / 375px) */
-@media (max-width: 420px){
-
-  .title{
-    font-size: 28px;
-  }
-
-  .lede{
-    font-size: 15px;
-  }
-
-  .pill{
-    padding: 6px 12px;
-    font-size: 11px;
-  }
-
-  .stats{
-    grid-template-columns: 1fr;
-  }
-
-  .event h4{
-    font-size: 15px;
-  }
-
-  .brand img{
-    width: 44px;
-    height: 44px;
-  }
-
-}
-
+    @media (max-width:480px){
+      .title{font-size:32px;}
+      .stats{grid-template-columns:1fr;}
+    }
   </style>
-  
 </head>
+
 <body>
+
+  <!-- HEADER -->
   <header>
-    <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:16px">
+    <div class="header-inner container">
       <div class="brand">
-        <img src="/Symbol.png" alt="MSUCSA logo">
+        <img src="/Symbol.png" />
         <h1>MSU Cricket Association</h1>
       </div>
-      <nav aria-label="primary">
-        <a href="../index.html" style="color:#ddd">Home</a>
+
+      <div class="menu-icon" onclick="toggleMenu()">
+        <div></div><div></div><div></div>
+      </div>
+
+      <nav id="mobile-menu" class="mobile-menu">
+        <a href="../index.html">Home</a>
+        <a href="./AboutUs.html">About Us</a>
+        <a href="./Achievements.html">Achievements</a>
+        <a href="./Eboard.html">Meet our E-Board</a>
+        <a href="./Playercard.html">Playercard</a>
+        <a href="./FundMe.html">Go Fund Me</a>
+        <a href="./PhotosArchieve.html">Photos Archive</a>
+        <a href="./contactUs.html">Contact Us</a>
       </nav>
     </div>
   </header>
 
   <main>
-    <!-- Hero -->
+
+    <!-- HERO -->
     <section class="container hero">
       <span class="eyebrow">About Us</span>
-      <h2 class="title special-font">
+      <h2 class="title">
         Built like Spartans. <span class="kline">Played with precision.</span><br/>
         Community. Craft. Cricket.
       </h2>
       <p class="lede">
         We’re a student-led program where elite standards meet genuine belonging.
         Strategy, conditioning, and data-backed preparation sit next to mentorship,
-        respect, and love for the game. This is MSUCSA — on a mission to make
-        every rep count, every over matter, and every Spartan better.
+        respect, and love for the game.
       </p>
 
-      <div class="marquee-wrap" aria-hidden="true">
+      <div class="marquee-wrap">
         <div class="marquee">
           <span class="pill">Discipline</span>
           <span class="pill">Integrity</span>
@@ -304,115 +327,128 @@
           <span class="pill">Focus</span>
           <span class="pill">Respect</span>
           <span class="pill">Relentless</span>
+          <!-- repeat for continuous scroll -->
           <span class="pill">Discipline</span>
           <span class="pill">Integrity</span>
           <span class="pill">Team First</span>
-          <span class="pill">Speed</span>
-          <span class="pill">Focus</span>
-          <span class="pill">Respect</span>
-          <span class="pill">Relentless</span>
         </div>
       </div>
     </section>
 
-    <!-- Stats -->
+    <!-- STATS -->
     <section class="container section">
       <div class="grid stats">
-        <div class="card">
-          <p class="stat">120+</p>
-          <p class="label">Active members</p>
-        </div>
-        <div class="card">
-          <p class="stat">3</p>
-          <p class="label">Competitive squads</p>
-        </div>
-        <div class="card">
-          <p class="stat">18</p>
-          <p class="label">Annual fixtures</p>
-        </div>
-        <div class="card">
-          <p class="stat">92%</p>
-          <p class="label">Practice attendance</p>
-        </div>
+        <div class="card"><p class="stat">120+</p><p class="label">Active members</p></div>
+        <div class="card"><p class="stat">3</p><p class="label">Competitive squads</p></div>
+        <div class="card"><p class="stat">18</p><p class="label">Annual fixtures</p></div>
+        <div class="card"><p class="stat">92%</p><p class="label">Attendance</p></div>
       </div>
     </section>
 
-    <!-- Mission & Why it matters -->
+    <!-- MISSION -->
     <section class="container section">
       <div class="grid mission">
         <div>
-          <h3 class="big special-font">Our mission is simple: set a standard worthy of the Spartan name — on the pitch and off it.</h3>
+          <h3 class="big">A standard worthy of the Spartan name — on the pitch and off it.</h3>
           <div class="divider"></div>
-          <div class="points">
-            <div class="point">
-              <span class="dot" aria-hidden="true"></span>
-              <p class="caption"><strong>Player-first development.</strong> Structured coaching, role clarity, and honest feedback to compound skill over ego.</p>
-            </div>
-            <div class="point">
-              <span class="dot" aria-hidden="true"></span>
-              <p class="caption"><strong>Data with feel.</strong> We use video, scoring, and basic analytics to inform decisions — without losing instinct.</p>
-            </div>
-            <div class="point">
-              <span class="dot" aria-hidden="true"></span>
-              <p class="caption"><strong>Culture that endures.</strong> We celebrate effort, protect each other, and keep the room humble, hungry, and together.</p>
-            </div>
+
+          <div class="point">
+            <span class="dot"></span>
+            <p class="caption"><strong>Player-first development.</strong> Structured coaching and honest feedback over ego.</p>
+          </div>
+
+          <div class="point">
+            <span class="dot"></span>
+            <p class="caption"><strong>Data with feel.</strong> Video, scoring, and analytics blended with instinct.</p>
+          </div>
+
+          <div class="point">
+            <span class="dot"></span>
+            <p class="caption"><strong>Culture that endures.</strong> Humble, hungry, committed — always.</p>
           </div>
         </div>
+
         <div>
-          <img src="/Photos/Team_CCL.jpg" alt="MSUCSA team huddle under lights" style="border-radius:14px;border:1px solid var(--ring)">
+          <img src="/Photos/Team_CCL.jpg" style="border-radius:14px;border:1px solid var(--ring)">
         </div>
       </div>
     </section>
 
-    <!-- Timeline -->
+    <!-- TIMELINE -->
     <section class="container section">
-      <h3 class="big special-font" style="margin-bottom:16px">How we got here</h3>
+      <h3 class="big">How we got here</h3>
+
       <div class="timeline">
         <div class="event">
           <div class="time">2021</div>
           <h4>Foundation</h4>
-          <p>Started as a small pickup group with borrowed gear and a big standard: do everything like it matters.</p>
+          <p>Started as a small pickup group with borrowed gear.</p>
         </div>
+
         <div class="event">
           <div class="time">2023</div>
           <h4>Program formalized</h4>
-          <p>Three-day training cadence, role-based selection, and a shared playbook for how Spartans compete.</p>
+          <p>Training cadence, selection model, and culture book introduced.</p>
         </div>
+
         <div class="event">
           <div class="time">2024</div>
-          <h4>Comp squads & fixtures</h4>
-          <p>Multiple squads, regular competition, and partnerships that helped us scale without losing culture.</p>
+          <h4>Competitive squads</h4>
+          <p>MSUCSA entered multi-division league competition.</p>
         </div>
+
         <div class="event">
           <div class="time">2025</div>
-          <h4>Performance flywheel</h4>
-          <p>Video + score tracking to review powerplays, death overs, and strike rotation — learning loops went pro.</p>
+          <h4>Performance Flywheel</h4>
+          <p>Video + scoring review system added to training pipeline.</p>
         </div>
       </div>
     </section>
 
     <!-- CTA -->
-    <section class="container section" aria-label="Join or view schedule">
+    <section class="container section">
       <div class="cta">
-        <h3 class="special-font">Ready to wear green? Earn your place.</h3>
+        <h3>Ready to wear green? Earn your place.</h3>
         <div class="actions">
           <a class="btn btn-primary" href="./Playercard.html">🏏 Join Our Squad</a>
           <a class="btn btn-ghost" href="./Schedule.html">View Schedule</a>
         </div>
       </div>
     </section>
+
   </main>
 
   <footer>
-    <p>© 2025 MSU Cricket Association. Spartans play cricket too.</p>
+    © 2025 MSU Cricket Association. Spartans play cricket too.
   </footer>
 
+  <!-- JS FOR MENU -->
   <script>
-    // Optional: small header shadow on scroll
+    function toggleMenu(){
+      const menu = document.getElementById('mobile-menu');
+      menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
+    }
+
+    // click outside to close
+    document.addEventListener('click', function(e){
+      const menu = document.getElementById('mobile-menu');
+      const icon = document.querySelector('.menu-icon');
+
+      if(menu.style.display === "flex" &&
+         !menu.contains(e.target) &&
+         !icon.contains(e.target)){
+        menu.style.display = "none";
+      }
+    });
+
+    // Add scroll shadow
     const header = document.querySelector('header');
-    addEventListener('scroll', () => {
-      header.style.boxShadow = (scrollY>8) ? '0 8px 20px rgba(0,0,0,.35)' : 'none';
-    }, {passive:true});
+    window.addEventListener('scroll', ()=>{
+      header.style.boxShadow = (scrollY > 6) 
+        ? '0 6px 18px rgba(0,0,0,.45)'
+        : 'none';
+    });
   </script>
+
 </body>
 </html>

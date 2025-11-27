@@ -5,6 +5,54 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MSU Cricket Association | Schedule</title>
   <style>
+    /* ----------------------------- */
+    /* GOLD HAMBURGER BUTTON         */
+    /* ----------------------------- */
+    .hamburger {
+      width: 30px;
+      height: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      position: absolute;
+      top: 22px;
+      right: 22px;
+    }
+
+    .hamburger span {
+      width: 100%;
+      height: 4px;
+      background: #FFD700;
+      border-radius: 4px;
+      box-shadow: 0 0 6px #FFD700;
+    }
+
+    /* Slide-out menu */
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 70px;
+      right: 0;
+      width: 200px;
+      background: rgba(0,0,0,0.95);
+      border-left: 1px solid #FFD700;
+      padding: 18px;
+      z-index: 999;
+    }
+
+    .mobile-menu a {
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 0;
+      font-size: 15px;
+    }
+
+    .mobile-menu.show {
+      display: flex;
+    }
+
     /* --- MOBILE + TABLET OPTIMIZATION FOR ACHIEVEMENTS PAGE --- */
 
 /* Large tablets and small laptops */
@@ -106,7 +154,7 @@
 
     body {
       background-color: #000;
-      color: #ffffff; /* golden text */
+      color: #ffffff;
       display: flex;
       flex-direction: column;
       min-height: 100vh;
@@ -116,6 +164,7 @@
       text-align: center;
       padding: 3rem 1rem 1rem;
       border-bottom: 2px solid #FFD700;
+      position: relative;
     }
 
     header h1 {
@@ -157,9 +206,26 @@
     }
   </style>
 </head>
+
 <body>
+
   <header>
     <h1>MSU Cricket Association Schedule</h1>
+
+    <!-- HAMBURGER BUTTON -->
+    <div class="hamburger" id="hamBtn">
+      <span></span><span></span><span></span>
+    </div>
+
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="/index.html">Home</a>
+      <a href="/team.html">Team</a>
+      <a href="/achievements.html">Achievements</a>
+      <a href="/schedule.html">Schedule</a>
+      <a href="/fund.html">Fund Us</a>
+      <a href="/photos.html">Photos</a>
+    </div>
   </header>
 
   <section class="content">
@@ -172,5 +238,16 @@
   <footer>
     © 2025 MSU Cricket Association. All rights reserved.
   </footer>
+
+  <script>
+    /* Hamburger Functionality */
+    const ham = document.getElementById("hamBtn");
+    const menu = document.getElementById("mobileMenu");
+
+    ham.addEventListener("click", () => {
+      menu.classList.toggle("show");
+    });
+  </script>
+
 </body>
 </html>

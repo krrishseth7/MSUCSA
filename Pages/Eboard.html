@@ -8,98 +8,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
 
   <style>
-    /* --- MOBILE + TABLET OPTIMIZATION FOR ACHIEVEMENTS PAGE --- */
-
-/* Large tablets and small laptops */
-@media (max-width: 1020px) {
-  h1 {
-    font-size: 2.4rem;
-  }
-  .achievements {
-    width: 95%;
-  }
-  .card {
-    padding: 24px 28px;
-  }
-}
-
-/* Standard mobile screens (iPhone, Android) */
-@media (max-width: 700px) {
-
-  body {
-    padding: 40px 14px;
-  }
-
-  h1 {
-    font-size: 2rem;
-    letter-spacing: 2px;
-    margin-bottom: 40px;
-  }
-
-  .achievements {
-    gap: 32px;
-  }
-
-  .card {
-    flex-direction: column;
-    text-align: center;
-    padding: 26px 20px;
-  }
-
-  .text {
-    margin-right: 0;
-    margin-bottom: 16px;
-  }
-
-  .title {
-    font-size: 1.3rem;
-  }
-
-  .desc {
-    font-size: 0.95rem;
-    line-height: 1.55;
-  }
-
-  .photo {
-    width: 120px;
-    height: 120px;
-  }
-
-  .divider {
-    width: 80%;
-    margin: 40px auto;
-  }
-}
-
-/* Small phones (iPhone SE, compact devices) */
-@media (max-width: 420px) {
-
-  body {
-    padding: 34px 12px;
-  }
-
-  h1 {
-    font-size: 1.7rem;
-  }
-
-  .title {
-    font-size: 1.15rem;
-  }
-
-  .desc {
-    font-size: 0.88rem;
-  }
-
-  .photo {
-    width: 105px;
-    height: 105px;
-  }
-
-  .card {
-    padding: 20px 16px;
-  }
-}
-
     :root {
       --bg:#000;
       --fg:#f5f5f7;
@@ -119,12 +27,82 @@
       padding:40px 20px;
       display:flex;
       justify-content:center;
-      backdrop-filter:blur(4px);
+      position: relative;
+    }
+
+    /* HEADER + MENU */
+    .topbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 18px 26px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(6px);
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .topbar h2 {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .menu-icon {
+      width: 32px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .menu-icon div {
+      height: 4px;
+      background: white;
+      border-radius: 4px;
+    }
+
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      position: fixed;
+      top: 70px;
+      right: 20px;
+      width: 200px;
+      background: #111;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      z-index: 1500;
+    }
+
+    .mobile-menu a {
+      color: white;
+      text-decoration: none;
+      padding: 12px 0;
+      font-size: 16px;
+    }
+
+    .mobile-menu a:hover {
+      color: var(--accent);
+    }
+
+    /* BACKDROP CLICK AREA */
+    #close-area {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1200;
     }
 
     .container{
       width:100%;
       max-width:1100px;
+      margin-top: 120px;
     }
 
     header{
@@ -159,7 +137,6 @@
       margin-top:30px;
     }
 
-    /* Cards */
     .card{
       background:var(--panel);
       border:1px solid var(--stroke);
@@ -176,7 +153,6 @@
       box-shadow:0 18px 40px rgba(0,0,0,.5);
     }
 
-    /* Neon Rotating Ring */
     .avatar-wrapper{
       position:relative;
       width:140px;
@@ -204,7 +180,6 @@
       to   { transform:rotate(360deg); }
     }
 
-    /* Avatar inside ring */
     .avatar{
       position:relative;
       width:100%;
@@ -241,11 +216,37 @@
       font-size:.85rem;
       color:var(--muted);
     }
-
   </style>
 </head>
 
 <body>
+
+  <!-- 🔥 HAMBURGER TOPBAR -->
+  <div class="topbar">
+    <h2>MSU Cricket Association</h2>
+
+    <div onclick="toggleMenu()" class="menu-icon">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+
+  <!-- BACKDROP CLICK AREA -->
+  <div id="close-area" onclick="closeMenu()"></div>
+
+  <!-- MOBILE MENU -->
+  <div id="mobile-menu" class="mobile-menu">
+    <a href="../index.html">Home</a>
+    <a href="./AboutUs.html">About Us</a>
+    <a href="./Achievements.html">Achievements</a>
+    <a href="./Eboard.html">Meet our E-Board</a>
+    <a href="./Playercard.html">Playercard</a>
+    <a href="./FundMe.html">Go Fund Me</a>
+    <a href="./PhotosArchieve.html">Photos Archive</a>
+    <a href="./contactUs.html">Contact Us</a>
+  </div>
+
   <div class="container">
 
     <header>
@@ -268,7 +269,7 @@
         <div class="role">President</div>
       </div>
 
-      <!-- Vice President -->
+      <!-- VP -->
       <div class="card">
         <div class="avatar-wrapper">
           <div class="neon-ring"></div>
@@ -280,7 +281,7 @@
         <div class="role">Vice President</div>
       </div>
 
-      <!-- Seth -->
+      <!-- Krrish -->
       <div class="card">
         <div class="avatar-wrapper">
           <div class="neon-ring"></div>
@@ -347,5 +348,26 @@
     </footer>
 
   </div>
+
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById("mobile-menu");
+      const overlay = document.getElementById("close-area");
+
+      if (menu.style.display === "flex") {
+        menu.style.display = "none";
+        overlay.style.display = "none";
+      } else {
+        menu.style.display = "flex";
+        overlay.style.display = "block";
+      }
+    }
+
+    function closeMenu() {
+      document.getElementById("mobile-menu").style.display = "none";
+      document.getElementById("close-area").style.display = "none";
+    }
+  </script>
+
 </body>
 </html>

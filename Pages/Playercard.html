@@ -19,6 +19,7 @@
       --ring:#2a2a2a;
       --shadow: 0 12px 32px rgba(0,0,0,.55);
       --radius:18px;
+      --accent:#00ffc6;
     }
 
     /* Base */
@@ -31,6 +32,10 @@
       color:var(--text);
     }
 
+    body.menu-open{
+      overflow:hidden;
+    }
+
     /* Header / toolbar */
     header{
       border-bottom:1px solid #252525;
@@ -38,15 +43,110 @@
       backdrop-filter:saturate(1.1) blur(6px);
       background:linear-gradient(180deg,rgba(0,0,0,.7),rgba(0,0,0,.45));
     }
-    .wrap{max-width:1400px;margin:0 auto;padding:20px 24px}
-    .brand{
-      display:flex;align-items:center;gap:12px;justify-content:center;text-align:center
+    .wrap{max-width:1400px;margin:0 auto;padding:12px 24px 18px;}
+
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      flex-wrap:wrap;
+      margin-bottom:12px;
     }
-    .brand h1{font-size:clamp(22px,3vw,32px);letter-spacing:1px;margin:0;font-weight:600}
-    .brand .tag{font-size:12px;color:#bdbdbd;letter-spacing:.3px}
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .brand h1{
+      font-size:clamp(20px,3vw,28px);
+      letter-spacing:.06em;
+      margin:0;
+      font-weight:600;
+    }
+    .brand .tagline{
+      font-size:11px;
+      color:var(--muted);
+      letter-spacing:.16em;
+      text-transform:uppercase;
+    }
+
+    /* Desktop nav */
+    .desktop-nav{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      font-size:13px;
+      color:var(--muted);
+    }
+    .desktop-nav a{
+      text-decoration:none;
+      color:var(--muted);
+      padding:4px 0;
+      position:relative;
+    }
+    .desktop-nav a::after{
+      content:"";
+      position:absolute;
+      left:0; bottom:-3px;
+      width:0;
+      height:2px;
+      background:linear-gradient(90deg,var(--accent),var(--gold));
+      transition:width .18s ease;
+    }
+    .desktop-nav a:hover::after{
+      width:100%;
+    }
+
+    /* Hamburger icon (mobile) */
+    .menu-icon{
+      display:none;
+      width:40px;
+      height:36px;
+      border-radius:999px;
+      border:1px solid var(--ring);
+      background:radial-gradient(circle at 0 0,rgba(0,255,198,.28),rgba(0,0,0,.9));
+      box-shadow:0 0 14px rgba(0,255,198,.45);
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      gap:5px;
+      cursor:pointer;
+      padding:0;
+    }
+    .menu-line{
+      width:18px;
+      height:2px;
+      border-radius:999px;
+      background:linear-gradient(90deg,var(--accent),var(--gold));
+      transition:transform .2s ease, opacity .2s ease;
+    }
+    .menu-icon.open .menu-line:nth-child(1){
+      transform:translateY(4px) rotate(45deg);
+    }
+    .menu-icon.open .menu-line:nth-child(2){
+      opacity:0;
+    }
+    .menu-icon.open .menu-line:nth-child(3){
+      transform:translateY(-4px) rotate(-45deg);
+    }
+
+    @media (max-width: 840px){
+      .desktop-nav{display:none;}
+      .menu-icon{display:flex;}
+    }
+
+    /* Tools row */
+    .brand-row-center{
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+      text-align:left;
+    }
 
     .tools{
-      display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:14px
+      display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:6px;
     }
     .search{
       display:flex;align-items:center;gap:10px;
@@ -66,6 +166,90 @@
     }
     .chip:hover{transform:translateY(-1px)}
     .chip.active{border-color:var(--gold);box-shadow:0 0 0 1px rgba(255,215,0,.3) inset}
+
+    /* Mobile slide menu */
+    .menu-backdrop{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.5);
+      backdrop-filter:blur(14px);
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .25s ease;
+      z-index:60;
+    }
+    .menu-backdrop.open{
+      opacity:1;
+      pointer-events:auto;
+    }
+    .mobile-menu{
+      position:absolute;
+      top:0;
+      right:0;
+      width:280px;
+      max-width:80%;
+      height:100%;
+      background:radial-gradient(circle at top,#1d1d1f,#050505);
+      border-left:1px solid var(--ring);
+      box-shadow:-16px 0 40px rgba(0,0,0,.8);
+      padding:20px 20px 30px;
+      transform:translateX(100%);
+      transition:transform .3s cubic-bezier(.22,.9,.3,1.01);
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+    }
+    .menu-backdrop.open .mobile-menu{
+      transform:translateX(0);
+    }
+    .mobile-menu-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      margin-bottom:6px;
+    }
+    .mobile-title{
+      font-size:15px;
+      font-weight:600;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+    }
+    .mobile-sub{
+      font-size:11px;
+      color:var(--muted);
+    }
+    .mobile-close{
+      border-radius:999px;
+      border:1px solid var(--ring);
+      background:transparent;
+      color:var(--text);
+      width:32px;
+      height:32px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      font-size:16px;
+    }
+    .mobile-menu nav{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      margin-top:10px;
+      font-size:14px;
+    }
+    .mobile-menu a{
+      text-decoration:none;
+      color:var(--muted);
+      padding:8px 6px;
+      border-radius:8px;
+      transition:background .18s ease, color .18s ease;
+    }
+    .mobile-menu a:hover{
+      background:rgba(255,255,255,.06);
+      color:var(--text);
+    }
 
     /* Grid */
     main{max-width:1400px;margin:32px auto 70px;padding:0 24px}
@@ -139,8 +323,31 @@
 <body>
   <header>
     <div class="wrap">
-      <div class="brand">
-        <h1>MSU Cricket Student Association — Team</h1>
+      <div class="topbar">
+        <div class="brand">
+          <div class="brand-row-center">
+            <h1>MSUCSA — Team</h1>
+            <span class="tagline">SPARTANS PLAY CRICKET TOO</span>
+          </div>
+        </div>
+
+        <nav class="desktop-nav" aria-label="Primary navigation">
+          <a href="../index.html">Home</a>
+          <a href="./AboutUs.html">About</a>
+          <a href="./Achievements.html">Achievements</a>
+          <a href="./Eboard.html">E-Board</a>
+          <a href="./Playercard.html">Playercard</a>
+          <a href="./FundMe.html">Fund Us</a>
+          <a href="./PhotosArchieve.html">Photos</a>
+          <a href="./Schedule.html">Schedule</a>
+          <a href="./contactUs.html">Contact</a>
+        </nav>
+
+        <button class="menu-icon" id="menuToggle" aria-label="Open navigation" aria-expanded="false" aria-controls="mobileMenu">
+          <span class="menu-line"></span>
+          <span class="menu-line"></span>
+          <span class="menu-line"></span>
+        </button>
       </div>
 
       <div class="tools">
@@ -157,6 +364,30 @@
       </div>
     </div>
   </header>
+
+  <!-- Mobile neon slide menu -->
+  <div id="menu-backdrop" class="menu-backdrop" data-close-menu="true">
+    <div class="mobile-menu" id="mobileMenu">
+      <div class="mobile-menu-head">
+        <div>
+          <div class="mobile-title">MSUCSA</div>
+          <div class="mobile-sub">Neon Deck · Team Navigation</div>
+        </div>
+        <button class="mobile-close" type="button" aria-label="Close menu" data-close-menu="true">×</button>
+      </div>
+      <nav aria-label="Mobile navigation">
+        <a href="../index.html">Home</a>
+        <a href="./AboutUs.html">About Us</a>
+        <a href="./Achievements.html">Achievements</a>
+        <a href="./Eboard.html">Executive Board</a>
+        <a href="./Playercard.html">Playercard</a>
+        <a href="./FundMe.html">Go Fund Me</a>
+        <a href="./PhotosArchieve.html">Photos Archive</a>
+        <a href="./Schedule.html">Schedule</a>
+        <a href="./contactUs.html">Contact Us</a>
+      </nav>
+    </div>
+  </div>
 
   <main>
     <section class="grid" id="teamGrid">
@@ -201,7 +432,7 @@
         </div>
       </article>
 
-      <!-- Example player cards (trimmed bios for readability). Replace image paths as needed. -->
+      <!-- Adarsh -->
       <article class="card" tabindex="0" data-role="allrounder" data-name="Adarsh Vatts" data-country="India">
         <div class="inner">
           <div class="face front">
@@ -218,7 +449,8 @@
         </div>
       </article>
 
-      <article class="card" tabindex="0" data-role="batsman" data-name="Tanush Zutshi" data-country="India">
+      <!-- Tanush: batsman + keeper -->
+      <article class="card" tabindex="0" data-role="batsman keeper" data-name="Tanush Zutshi" data-country="India">
         <div class="inner">
           <div class="face front">
             <img src="/Photos/Tanush.jpeg" alt="Tanush Zutshi" loading="lazy">
@@ -227,12 +459,14 @@
           </div>
           <div class="face back">
             <h3>Tanush Zutshi</h3>
-            <div class="meta"><span>India</span><span>Batsman</span></div>
-            <p class="bio">Reliable top-order anchor; key innings at NCCA 2024–25 (qualifier and final), and a mentor for new talent.</p>
+            <div class="meta"><span>India</span><span>Batsman · Wicketkeeper</span></div>
+            <p class="bio">Reliable top-order anchor; key innings at NCCA 2024–25 (qualifier and final), and a mentor for new talent. Also provides backup wicketkeeping depth when required.</p>
             <button class="flip-btn" aria-label="Back to photo">Back</button>
           </div>
         </div>
       </article>
+
+      <!-- Krrish -->
       <article class="card" tabindex="0" data-role="allrounder" data-name="Krrish Seth" data-country="India">
         <div class="inner">
           <div class="face front">
@@ -243,12 +477,13 @@
           <div class="face back">
             <h3>Krrish Seth</h3>
             <div class="meta"><span>India</span><span>Bowling all-rounder</span></div>
-            <p class="bio">Death-overs specialist with late swing. Collegiate Cricket League 2025 - Best bowler for Michigan State Spartans, overall ranked 10th best bowler in the Midwest</p>
+            <p class="bio">Death-overs specialist with late swing. Collegiate Cricket League 2025 – Best bowler for Michigan State Spartans, overall ranked 10th best bowler in the Midwest.</p>
             <button class="flip-btn" aria-label="Back to photo">Back</button>
           </div>
         </div>
       </article>
 
+      <!-- Manish -->
       <article class="card" tabindex="0" data-role="batsman" data-name="Manish Kumar" data-country="India">
         <div class="inner">
           <div class="face front">
@@ -265,6 +500,7 @@
         </div>
       </article>
 
+      <!-- Dev -->
       <article class="card" tabindex="0" data-role="batsman" data-name="Dev Jariwala" data-country="USA">
         <div class="inner">
           <div class="face front">
@@ -281,6 +517,7 @@
         </div>
       </article>
 
+      <!-- Aaryan Jaju -->
       <article class="card" tabindex="0" data-role="bowler"  data-name="Aaryan Jaju" data-country="India">
         <div class="inner">
           <div class="face front">
@@ -297,6 +534,7 @@
         </div>
       </article>
 
+      <!-- Faiez -->
       <article class="card" tabindex="0" data-role="bowler" data-name="Faiez Mahmood" data-country="USA Pakistan">
         <div class="inner">
           <div class="face front">
@@ -313,6 +551,7 @@
         </div>
       </article>
 
+      <!-- Dhimaan -->
       <article class="card" tabindex="0" data-role="allrounder" data-name="Dhimaan Bhattacharya" data-country="UAE">
         <div class="inner">
           <div class="face front">
@@ -329,6 +568,7 @@
         </div>
       </article>
 
+      <!-- Sahil -->
       <article class="card" tabindex="0" data-role="bowler" data-name="Sahil Sharma" data-country="UAE">
         <div class="inner">
           <div class="face front">
@@ -345,11 +585,7 @@
         </div>
       </article>
 
-      
-
-      
-
-      <!-- Add remaining players similarly... -->
+      <!-- Nirav -->
       <article class="card" tabindex="0" data-role="batsman" data-name="Nirav Batlada" data-country="USA">
         <div class="inner">
           <div class="face front">
@@ -366,6 +602,7 @@
         </div>
       </article>
 
+      <!-- Aryan Kumar -->
       <article class="card" tabindex="0" data-role="batsman" data-name="Aryan Kumar" data-country="—">
         <div class="inner">
           <div class="face front">
@@ -382,6 +619,7 @@
         </div>
       </article>
 
+      <!-- Aryan Rose -->
       <article class="card" tabindex="0" data-role="batsman" data-name="Aryan Rose" data-country="—">
         <div class="inner">
           <div class="face front">
@@ -424,7 +662,7 @@
       });
     });
 
-    // search + filters
+    // search + filters with multi-role support
     const q = document.getElementById('q');
     const chips = document.querySelectorAll('.chip');
     let currentFilter = 'all';
@@ -432,14 +670,18 @@
     function applyFilters(){
       const term = (q.value||'').toLowerCase().trim();
       document.querySelectorAll('#teamGrid .card').forEach(card=>{
-        const role = card.dataset.role;
+        const roleStr = (card.dataset.role || '').toLowerCase();
+        const roles = roleStr.split(/\s+/).filter(Boolean);
         const name = card.dataset.name.toLowerCase();
         const country = card.dataset.country.toLowerCase();
-        const roleMatch = currentFilter==='all' || role===currentFilter;
-        const textMatch = !term || name.includes(term) || country.includes(term) || role.includes(term);
+
+        const roleMatch = currentFilter === 'all' || roles.includes(currentFilter);
+        const textMatch = !term || name.includes(term) || country.includes(term) || roleStr.includes(term);
+
         card.style.display = (roleMatch && textMatch) ? '' : 'none';
       });
     }
+
     q.addEventListener('input', applyFilters);
     chips.forEach(c=>{
       c.addEventListener('click', ()=>{
@@ -448,6 +690,53 @@
         currentFilter = c.dataset.filter;
         applyFilters();
       });
+    });
+
+    // Neon hamburger + tap-to-close
+    const menuToggle = document.getElementById('menuToggle');
+    const menuBackdrop = document.getElementById('menu-backdrop');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    function openMenu(){
+      menuBackdrop.classList.add('open');
+      menuToggle.classList.add('open');
+      menuToggle.setAttribute('aria-expanded','true');
+      document.body.classList.add('menu-open');
+    }
+
+    function closeMenu(){
+      menuBackdrop.classList.remove('open');
+      menuToggle.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded','false');
+      document.body.classList.remove('menu-open');
+    }
+
+    menuToggle.addEventListener('click', (e)=>{
+      e.stopPropagation();
+      if(menuBackdrop.classList.contains('open')){
+        closeMenu();
+      }else{
+        openMenu();
+      }
+    });
+
+    // Click on backdrop OR close button closes
+    menuBackdrop.addEventListener('click', (e)=>{
+      if(e.target.dataset.closeMenu === 'true'){
+        closeMenu();
+      }
+    });
+
+    // Close on link click
+    mobileMenu.querySelectorAll('a').forEach(link=>{
+      link.addEventListener('click', ()=>closeMenu());
+    });
+
+    // Escape key closes
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === 'Escape' && menuBackdrop.classList.contains('open')){
+        closeMenu();
+      }
     });
   </script>
 </body>

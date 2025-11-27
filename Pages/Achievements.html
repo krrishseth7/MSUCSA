@@ -4,101 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Achievements | MSUCSA</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   
   <style>
-    /* --- MOBILE + TABLET OPTIMIZATION FOR ACHIEVEMENTS PAGE --- */
 
-/* Large tablets and small laptops */
-@media (max-width: 1020px) {
-  h1 {
-    font-size: 2.4rem;
-  }
-  .achievements {
-    width: 95%;
-  }
-  .card {
-    padding: 24px 28px;
-  }
-}
-
-/* Standard mobile screens (iPhone, Android) */
-@media (max-width: 700px) {
-
-  body {
-    padding: 40px 14px;
-  }
-
-  h1 {
-    font-size: 2rem;
-    letter-spacing: 2px;
-    margin-bottom: 40px;
-  }
-
-  .achievements {
-    gap: 32px;
-  }
-
-  .card {
-    flex-direction: column;
-    text-align: center;
-    padding: 26px 20px;
-  }
-
-  .text {
-    margin-right: 0;
-    margin-bottom: 16px;
-  }
-
-  .title {
-    font-size: 1.3rem;
-  }
-
-  .desc {
-    font-size: 0.95rem;
-    line-height: 1.55;
-  }
-
-  .photo {
-    width: 120px;
-    height: 120px;
-  }
-
-  .divider {
-    width: 80%;
-    margin: 40px auto;
-  }
-}
-
-/* Small phones (iPhone SE, compact devices) */
-@media (max-width: 420px) {
-
-  body {
-    padding: 34px 12px;
-  }
-
-  h1 {
-    font-size: 1.7rem;
-  }
-
-  .title {
-    font-size: 1.15rem;
-  }
-
-  .desc {
-    font-size: 0.88rem;
-  }
-
-  .photo {
-    width: 105px;
-    height: 105px;
-  }
-
-  .card {
-    padding: 20px 16px;
-  }
-}
-
+    /* ---------------------- GLOBAL RESET ---------------------- */
     * {
       margin: 0;
       padding: 0;
@@ -110,22 +21,99 @@
       color: #fff;
       font-family: 'Poppins', sans-serif;
       min-height: 100vh;
+      padding: 50px 20px;
+      padding-top: 120px; /* extra space so header doesn't overlap */
+    }
+
+    /* ---------------------- HEADER WITH HAMBURGER ---------------------- */
+
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 18px 24px;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #1a1a1a;
+      z-index: 999;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand img {
+      width: 56px;
+      height: 56px;
+      object-fit: contain;
+    }
+
+    .brand h1 {
+      font-size: 22px;
+      font-weight: 700;
+      font-family: "Playfair Display", serif;
+    }
+
+    .menu-icon {
+      cursor: pointer;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      padding: 50px 20px;
+      gap: 6px;
     }
+
+    .menu-icon div {
+      width: 30px;
+      height: 4px;
+      background: #fff;
+      border-radius: 2px;
+    }
+
+    /* DROPDOWN MENU */
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 80px;
+      right: 20px;
+      background: #111;
+      padding: 20px;
+      border-radius: 12px;
+      border: 1px solid #222;
+      box-shadow: 0 4px 12px rgba(255,255,255,0.1);
+      z-index: 1000;
+    }
+
+    .mobile-menu a {
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 0;
+      font-size: 16px;
+    }
+
+    .mobile-menu a:hover {
+      color: #09ffca;
+    }
+
+
+    /* ---------------------- TITLE ---------------------- */
 
     h1 {
       font-size: 3rem;
-      color: #fff;
       letter-spacing: 3px;
       font-weight: 600;
-      text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+      text-shadow: 0 0 20px rgba(255,255,255,0.2);
       margin-bottom: 50px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      border-bottom: 1px solid rgba(255,255,255,0.2);
       padding-bottom: 10px;
+      text-align: center;
     }
+
+    /* ---------------------- ACHIEVEMENTS CARDS ---------------------- */
 
     .achievements {
       display: flex;
@@ -133,6 +121,7 @@
       gap: 40px;
       width: 90%;
       max-width: 900px;
+      margin: auto;
     }
 
     .card {
@@ -141,34 +130,30 @@
       justify-content: space-between;
       background: #0b0b0b;
       border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255,255,255,0.08);
       padding: 30px 40px;
       transition: all 0.3s ease;
     }
 
     .card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 30px rgba(255,255,255,0.1);
     }
 
     .text {
       flex: 1;
-      text-align: left;
       margin-right: 30px;
     }
 
     .title {
       font-size: 1.5rem;
       font-weight: 600;
-      color: #fff;
       margin-bottom: 10px;
-      text-transform: capitalize;
     }
 
     .desc {
-      color: #bbb;
       font-size: 1rem;
+      color: #bbb;
       line-height: 1.5;
     }
 
@@ -177,9 +162,8 @@
       height: 160px;
       border-radius: 50%;
       overflow: hidden;
-      border: 2px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
-      transition: transform 0.3s ease;
+      border: 2px solid rgba(255,255,255,0.2);
+      transition: 0.3s ease;
       flex-shrink: 0;
     }
 
@@ -187,7 +171,6 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.3s ease;
     }
 
     .card:hover .photo img {
@@ -197,43 +180,92 @@
     .divider {
       width: 60%;
       height: 1px;
-      background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent);
-      margin: 50px 0;
+      background: linear-gradient(to right, transparent, rgba(255,255,255,.3), transparent);
+      margin: 50px auto;
     }
 
     footer {
+      text-align: center;
       color: #777;
       font-size: 0.9rem;
-      margin-top: 30px;
-      text-align: center;
+      margin-top: 20px;
     }
+
+    /* ---------------------- RESPONSIVE ---------------------- */
 
     @media (max-width: 700px) {
       .card {
         flex-direction: column;
         text-align: center;
+        padding: 25px 20px;
       }
       .text {
-        margin-right: 0;
-        margin-bottom: 20px;
+        margin: 0 0 20px 0;
       }
       .photo {
         width: 130px;
         height: 130px;
       }
+      h1 {
+        font-size: 2.2rem;
+      }
     }
+
+    @media (max-width: 420px) {
+      h1 {
+        font-size: 1.7rem;
+      }
+      .title {
+        font-size: 1.15rem;
+      }
+      .photo {
+        width: 105px;
+        height: 105px;
+      }
+    }
+
   </style>
 </head>
+
 <body>
 
+  <!-- ---------------------- HEADER ---------------------- -->
+  <header>
+    <div class="brand">
+      <img src="/Symbol.png" alt="logo">
+      <h1 style="margin:0;">MSU Cricket Association</h1>
+    </div>
+
+    <div class="menu-icon" onclick="toggleMenu()">
+      <div></div><div></div><div></div>
+    </div>
+
+    <nav id="mobile-menu" class="mobile-menu">
+      <a href="../index.html">Home</a>
+      <a href="./AboutUs.html">About Us</a>
+      <a href="./Achievements.html">Achievements</a>
+      <a href="./Eboard.html">Meet our E-Board</a>
+      <a href="./Playercard.html">Playercard</a>
+      <a href="./FundMe.html">Go Fund Me</a>
+      <a href="./PhotosArchieve.html">Photos Archive</a>
+      <a href="./contactUs.html">Contact Us</a>
+    </nav>
+  </header>
+
+
+  <!-- ---------------------- PAGE TITLE ---------------------- -->
   <h1>MSUCSA Achievements</h1>
 
+  <!-- ---------------------- ACHIEVEMENT CARDS ---------------------- -->
   <div class="achievements">
 
     <div class="card">
       <div class="text">
         <div class="title">Krrish makes a comeback in CCL League (Chicago)</div>
-        <div class="desc">After a year of training and recovery from vertebral displacement, Krrish returned to the Chicago CCL League, dominating with passion and pace, marking a proud moment for MSU Cricket by taking a 5 wicket haul.</div>
+        <div class="desc">
+          After a year of training and recovery from vertebral displacement, Krrish returned
+          to the Chicago CCL League, dominating with passion and pace — taking a 5 wicket haul.
+        </div>
       </div>
       <div class="photo">
         <img src="/Photos/Krrish.jpg" alt="Krrish Seth">
@@ -243,17 +275,23 @@
     <div class="card">
       <div class="text">
         <div class="title">Dev scores 97 runs in Friendship Cup Final</div>
-        <div class="desc">Dev’s elegant 97-run innings anchored MSUCSA’s chase, showcasing power, patience, and leadership — a near-century that will be remembered for seasons to come.</div>
+        <div class="desc">
+          Dev’s elegant 97 anchored MSUCSA’s chase — a near-century that showcased power,
+          patience, and leadership.
+        </div>
       </div>
       <div class="photo">
-        <img src="/Photos/Dev.jpeg" alt="Dev player photo">
+        <img src="/Photos/Dev.jpeg" alt="Dev">
       </div>
     </div>
 
     <div class="card">
       <div class="text">
         <div class="title">Arhaan takes 5 wickets in CCL</div>
-        <div class="desc">Vice-captain Arhaan Parikh turned the game around with a 5-wicket haul — leading the bowling attack with precision and control, sealing a critical win for MSUCSA.</div>
+        <div class="desc">
+          Vice-captain Arhaan Parikh delivered a match-winning 5-wicket haul, leading the
+          bowling attack with precision.
+        </div>
       </div>
       <div class="photo">
         <img src="/Photos/Arhaan.jpg" alt="Arhaan Parikh">
@@ -263,7 +301,31 @@
   </div>
 
   <div class="divider"></div>
+
   <footer>© 2025 MSU Cricket Student Association | Designed with precision 🏏</footer>
+
+
+  <!-- ---------------------- JS: MENU + CLICK OUTSIDE ---------------------- -->
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById("mobile-menu");
+      menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+    }
+
+    // Close menu when clicking outside
+    document.addEventListener("click", function (event) {
+      const menu = document.getElementById("mobile-menu");
+      const menuIcon = document.querySelector(".menu-icon");
+
+      if (
+        menu.style.display === "flex" &&
+        !menu.contains(event.target) &&
+        !menuIcon.contains(event.target)
+      ) {
+        menu.style.display = "none";
+      }
+    });
+  </script>
 
 </body>
 </html>

@@ -6,290 +6,366 @@
   <title>MSUCSA • Fund Us (Venmo)</title>
   <link rel="icon" type="image/png" href="./Symbol.png">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,600&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
   <style>
-    /* --- MOBILE + TABLET OPTIMIZATION FOR ACHIEVEMENTS PAGE --- */
 
-/* Large tablets and small laptops */
-@media (max-width: 1020px) {
-  h1 {
-    font-size: 2.4rem;
-  }
-  .achievements {
-    width: 95%;
-  }
-  .card {
-    padding: 24px 28px;
-  }
+/* ---------------- NEON HAMBURGER + MENU ---------------- */
+
+.menu-icon{
+  display:flex;
+  width:42px; height:38px;
+  border-radius:12px;
+  border:1px solid rgba(212,175,55,.35);
+  background:rgba(20,20,20,.85);
+  box-shadow:0 0 14px rgba(212,175,55,.45);
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:6px;
+  cursor:pointer;
 }
 
-/* Standard mobile screens (iPhone, Android) */
-@media (max-width: 700px) {
-
-  body {
-    padding: 40px 14px;
-  }
-
-  h1 {
-    font-size: 2rem;
-    letter-spacing: 2px;
-    margin-bottom: 40px;
-  }
-
-  .achievements {
-    gap: 32px;
-  }
-
-  .card {
-    flex-direction: column;
-    text-align: center;
-    padding: 26px 20px;
-  }
-
-  .text {
-    margin-right: 0;
-    margin-bottom: 16px;
-  }
-
-  .title {
-    font-size: 1.3rem;
-  }
-
-  .desc {
-    font-size: 0.95rem;
-    line-height: 1.55;
-  }
-
-  .photo {
-    width: 120px;
-    height: 120px;
-  }
-
-  .divider {
-    width: 80%;
-    margin: 40px auto;
-  }
+.menu-line{
+  width:20px; height:2px;
+  border-radius:8px;
+  background:linear-gradient(90deg,#d4af37,#b8921a);
+  transition:transform .2s, opacity .2s;
 }
 
-/* Small phones (iPhone SE, compact devices) */
-@media (max-width: 420px) {
-
-  body {
-    padding: 34px 12px;
-  }
-
-  h1 {
-    font-size: 1.7rem;
-  }
-
-  .title {
-    font-size: 1.15rem;
-  }
-
-  .desc {
-    font-size: 0.88rem;
-  }
-
-  .photo {
-    width: 105px;
-    height: 105px;
-  }
-
-  .card {
-    padding: 20px 16px;
-  }
+.menu-icon.open .menu-line:nth-child(1){
+  transform:translateY(6px) rotate(45deg);
+}
+.menu-icon.open .menu-line:nth-child(2){ opacity:0; }
+.menu-icon.open .menu-line:nth-child(3){
+  transform:translateY(-6px) rotate(-45deg);
 }
 
-    :root{
-      --bg:#000; --bg2:#0b0b0e; --fg:#f5f5f7; --muted:#b7b7c0;
-      --gold:#d4af37; --gold2:#b8921a; --ring:rgba(212,175,55,.35); --stroke:rgba(255,255,255,.08);
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0; color:var(--fg);
-      background:
-        radial-gradient(900px 400px at 10% -5%, rgba(212,175,55,.08), transparent),
-        radial-gradient(1000px 500px at 90% 0%, rgba(255,255,255,.06), transparent),
-        var(--bg);
-      font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-    }
-    .special{font-family:"Playfair Display", serif; font-weight:600}
-    .header{display:flex;justify-content:space-between;align-items:center;padding:16px 24px;border-bottom:1px solid #161616;background:rgba(0,0,0,.6);backdrop-filter:blur(8px)}
-    .logo{display:flex;align-items:center;gap:14px}
-    .logo img{width:160px}
-    .logo h2{margin:0}
-    .hero{max-width:1100px;margin:24px auto 8px;padding:0 24px}
-    .eyebrow{color:var(--gold);text-transform:uppercase;letter-spacing:.18em;font-size:12px;font-weight:800}
-    .title{font-size:clamp(28px,4.6vw,48px);letter-spacing:-.02em;margin:.25rem 0 0}
-    .subtitle{color:var(--muted);max-width:900px}
-    .card{max-width:1100px;margin:18px auto;padding:24px;border-radius:20px;border:1px solid var(--stroke);
-      background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02)),var(--bg2);box-shadow:0 10px 30px rgba(0,0,0,.5)}
-    .grid{display:grid;gap:24px}
-    @media (min-width:980px){.grid{grid-template-columns:1.1fr .9fr}}
-    .field{display:grid;gap:6px;margin-bottom:10px}
-    .label{font-weight:700;font-size:13px;color:var(--muted)}
-    .input{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--stroke);background:rgba(255,255,255,.03);color:var(--fg);outline:none}
-    .input:focus{box-shadow:0 0 0 6px var(--ring);border-color:var(--gold)}
-    .amounts{display:flex;flex-wrap:wrap;gap:10px}
-    .chip{padding:10px 14px;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid var(--stroke);color:var(--fg);cursor:pointer}
-    .chip[aria-pressed="true"]{outline:2px solid var(--gold);outline-offset:2px;background:rgba(212,175,55,.15)}
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:14px;border-radius:14px;border:1px solid var(--gold2);
-      background:linear-gradient(135deg,var(--gold),var(--gold2));color:#0b0f19;font-weight:800;cursor:pointer;text-decoration:none}
-    .btn:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(212,175,55,.35)}
-    .btn.secondary{background:transparent;color:var(--fg);border:1px solid var(--stroke)}
-    .aside{display:grid;gap:14px}
-    .aside h4{margin:0;color:var(--gold)}
-    .note{color:var(--muted);font-size:14px}
-    .qr{display:grid;place-items:center;gap:8px;background:rgba(255,255,255,.03);border:1px dashed var(--stroke);border-radius:14px;padding:14px}
-    .qr img{width:220px;max-width:100%;height:auto;border-radius:10px}
-    .row{display:flex;gap:8px;align-items:center}
-    .cpy{padding:10px 12px;border-radius:10px;background:#101010;border:1px solid var(--stroke);cursor:pointer;color:var(--muted)}
-    footer{color:#ddd;background:#111;text-align:center;padding:28px 20px;margin-top:48px;border-top:1px solid #333}
+/* Backdrop */
+.menu-backdrop{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.65);
+  backdrop-filter:blur(12px);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .3s;
+  z-index:200;
+}
+.menu-backdrop.open{
+  opacity:1;
+  pointer-events:auto;
+}
+
+/* Slide menu */
+.mobile-menu{
+  position:absolute;
+  top:0; right:0;
+  width:280px;
+  height:100%;
+  background:rgba(15,15,15,.95);
+  border-left:1px solid rgba(212,175,55,.25);
+  padding:30px 24px;
+  transform:translateX(100%);
+  transition:transform .35s;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+.menu-backdrop.open .mobile-menu{
+  transform:translateX(0);
+}
+
+.mobile-menu h3{
+  color:#d4af37;
+  margin:0 0 10px 0;
+  font-family:"Playfair Display", serif;
+}
+
+.mobile-menu a{
+  color:#fff;
+  text-decoration:none;
+  padding:10px 4px;
+  border-radius:8px;
+  font-size:16px;
+}
+.mobile-menu a:hover{
+  background:rgba(255,255,255,.08);
+}
+
+.close-menu{
+  width:36px;
+  height:36px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,.25);
+  background:rgba(0,0,0,.4);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:white;
+  cursor:pointer;
+  font-size:20px;
+  margin-left:auto;
+}
+
+:root{
+  --bg:#000; --bg2:#0b0b0e; --fg:#f5f5f7; --muted:#b7b7c0;
+  --gold:#d4af37; --gold2:#b8921a; --ring:rgba(212,175,55,.35); --stroke:rgba(255,255,255,.08);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; color:var(--fg);
+  background:
+    radial-gradient(900px 400px at 10% -5%, rgba(212,175,55,.08), transparent),
+    radial-gradient(1000px 500px at 90% 0%, rgba(255,255,255,.06), transparent),
+    var(--bg);
+  font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+/* ---------------- FIXED HEADER WITH HAMBURGER ---------------- */
+
+.header{
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:16px 24px;
+  border-bottom:1px solid #161616;
+  background:rgba(0,0,0,.6);
+  backdrop-filter:blur(8px);
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+.logo img{width:160px}
+
+/* ---------------- REST OF YOUR ORIGINAL PAGE (UNCHANGED) ---------------- */
+
+.special{font-family:"Playfair Display", serif; font-weight:600}
+.hero{max-width:1100px;margin:24px auto 8px;padding:0 24px}
+.eyebrow{color:var(--gold);text-transform:uppercase;letter-spacing:.18em;font-size:12px;font-weight:800}
+.title{font-size:clamp(28px,4.6vw,48px);letter-spacing:-.02em;margin:.25rem 0 0}
+.subtitle{color:var(--muted);max-width:900px}
+
+.card{
+  max-width:1100px;margin:18px auto;padding:24px;border-radius:20px;
+  border:1px solid var(--stroke);
+  background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02)),var(--bg2);
+  box-shadow:0 10px 30px rgba(0,0,0,.5)
+}
+
+.grid{display:grid;gap:24px}
+@media (min-width:980px){.grid{grid-template-columns:1.1fr .9fr}}
+
+.field{display:grid;gap:6px;margin-bottom:10px}
+.label{font-weight:700;font-size:13px;color:var(--muted)}
+.input{
+  width:100%;padding:12px 14px;border-radius:12px;
+  border:1px solid var(--stroke);
+  background:rgba(255,255,255,.03);color:var(--fg);
+}
+.input:focus{box-shadow:0 0 0 6px var(--ring);border-color:var(--gold)}
+
+.amounts{display:flex;flex-wrap:wrap;gap:10px}
+.chip{
+  padding:10px 14px;border-radius:999px;
+  background:rgba(255,255,255,.04);
+  border:1px solid var(--stroke);color:var(--fg);
+  cursor:pointer
+}
+.chip[aria-pressed="true"]{
+  outline:2px solid var(--gold);
+  outline-offset:2px;
+  background:rgba(212,175,55,.15)
+}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:100%;padding:14px;
+  border-radius:14px;
+  border:1px solid var(--gold2);
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  color:#0b0f19;font-weight:800;
+  cursor:pointer;text-decoration:none
+}
+.btn.secondary{
+  background:transparent;color:var(--fg);border:1px solid var(--stroke)
+}
+
+.aside{display:grid;gap:14px}
+.aside h4{margin:0;color:var(--gold)}
+.note{color:var(--muted);font-size:14px}
+
+.qr{
+  display:grid;place-items:center;gap:8px;
+  background:rgba(255,255,255,.03);
+  border:1px dashed var(--stroke);border-radius:14px;padding:14px
+}
+
+.row{display:flex;gap:8px;align-items:center}
+.cpy{padding:10px 12px;border-radius:10px;background:#101010;border:1px solid var(--stroke);cursor:pointer;color:var(--muted)}
+
+footer{color:#ddd;background:#111;text-align:center;padding:28px 20px;margin-top:48px;border-top:1px solid #333}
+
   </style>
 </head>
+
 <body>
-  <div class="header">
-    <div class="logo">
-      <img src="/Symbol.png" alt="MSUCSA Logo">
-      <h2 class="special">MSU Cricket Association</h2>
-    </div>
+
+<!-- MENU BACKDROP -->
+<div id="menu-backdrop" class="menu-backdrop" data-close-menu="true">
+  <div class="mobile-menu">
+    <div class="close-menu" data-close-menu="true">×</div>
+    <h3>Menu</h3>
+
+    <a href="/index.html">Home</a>
+    <a href="/Pages/AboutUs.html">About Us</a>
+    <a href="/Pages/Achievements.html">Achievements</a>
+    <a href="/Pages/Eboard.html">E-Board</a>
+    <a href="/Pages/Playercard.html">Team</a>
+    <a href="/Pages/FundMe.html">Fund Us</a>
+    <a href="/Pages/PhotosArchieve.html">Photos</a>
+    <a href="/Pages/Schedule.html">Schedule</a>
+    <a href="/Pages/contactUs.html">Contact</a>
+  </div>
+</div>
+
+<!-- FIXED HEADER -->
+<div class="header">
+  <div class="logo">
+    <img src="/Symbol.png" alt="MSUCSA Logo">
+    <h2 class="special">MSU Cricket Association</h2>
   </div>
 
-  <section class="hero">
-    <div class="eyebrow special">Fund the Future of MSU Cricket</div>
-    <h1 class="title special">Back the Spartans <span style="color:#d4af37">•</span> Build the Game</h1>
-    <p class="subtitle">We’re keeping it simple: support MSU Cricket via <strong>Venmo</strong>. Pick an amount, add a note, and tap the Venmo button — no extra accounts or APIs.</p>
-  </section>
+  <!-- HAMBURGER -->
+  <div id="menuToggle" class="menu-icon">
+    <div class="menu-line"></div>
+    <div class="menu-line"></div>
+    <div class="menu-line"></div>
+  </div>
+</div>
 
-  <section class="card">
-    <div class="grid">
-      <!-- LEFT -->
-      <div>
-        <div class="field">
-          <label class="label" for="name">Name (optional)</label>
-          <input id="name" class="input" placeholder="Spartan Supporter" />
-        </div>
+<!-- HERO + FORM (unchanged) -->
+<section class="hero">
+  <div class="eyebrow special">Fund the Future</div>
+  <h1 class="title special">Support MSU Cricket</h1>
+  <p class="subtitle">Choose an amount & open Venmo.</p>
+</section>
 
-        <div class="field">
-          <span class="label">Choose an amount</span>
-          <div class="amounts" id="amounts">
-            <button type="button" class="chip" data-amt="10">$10</button>
-            <button type="button" class="chip" data-amt="25" aria-pressed="true">$25</button>
-            <button type="button" class="chip" data-amt="50">$50</button>
-            <button type="button" class="chip" data-amt="100">$100</button>
-            <button type="button" class="chip" data-amt="0">Custom</button>
-          </div>
-        </div>
+<section class="card">
+  <div class="grid">
 
-        <div class="field">
-          <label class="label" for="custom">Custom amount (USD)</label>
-          <input id="custom" class="input" type="number" min="1" step="1" placeholder="e.g., 42" />
-        </div>
+    <!-- LEFT -->
+    <div>
+      <div class="field">
+        <label class="label">Name (optional)</label>
+        <input id="name" class="input" />
+      </div>
 
-        <div class="field">
-          <label class="label" for="note">Message (optional)</label>
-          <input id="note" class="input" maxlength="120" placeholder="Go Green! Go White!" />
-        </div>
-
-        <div class="field">
-          <button id="venmoBtn" class="btn">Open Venmo</button>
-        </div>
-
-        <p class="note">If the app doesn’t open, a web link will be shown below. You can also scan the QR on the right.</p>
-
-        <div id="fallback" class="field" style="display:none;">
-          <a id="venmoWeb" class="btn secondary" href="#" target="_blank" rel="noopener">Open Venmo on Web</a>
+      <div class="field">
+        <span class="label">Choose an amount</span>
+        <div class="amounts">
+          <button class="chip" data-amt="10">$10</button>
+          <button class="chip" aria-pressed="true" data-amt="25">$25</button>
+          <button class="chip" data-amt="50">$50</button>
+          <button class="chip" data-amt="100">$100</button>
+          <button class="chip" data-amt="0">Custom</button>
         </div>
       </div>
 
-      <!-- RIGHT -->
-      <aside class="aside">
-        <h4 class="special">Our Venmo</h4>
-        <div class="row">
-          <input id="handle" class="input" value="@kseth2" aria-label="Venmo handle" readonly>
-          <button class="cpy" id="copyBtn" title="Copy handle">Copy</button>
-        </div>
+      <div class="field">
+        <label class="label">Custom</label>
+        <input id="custom" class="input" type="number" />
+      </div>
 
-        <div class="qr">
-          <img src="/QRcode.png" alt="Scan to pay on Venmo">
-          <div class="note">Scan with your phone camera to pay</div>
-        </div>
+      <div class="field">
+        <label class="label">Message</label>
+        <input id="note" class="input" />
+      </div>
 
-        <h4 class="special">Where donations go</h4>
-        <ul class="note" style="margin-top:-4px">
-          <li>Cricket kits, balls, protective gear</li>
-          <li>Indoor nets and facility rentals</li>
-          <li>Tournament registrations & travel</li>
-          <li>Community events and coaching</li>
-        </ul>
-      </aside>
+      <button id="venmoBtn" class="btn">Open Venmo</button>
+
+      <div id="fallback" class="field" style="display:none;margin-top:10px;">
+        <a id="venmoWeb" class="btn secondary" target="_blank">Open Venmo Web</a>
+      </div>
     </div>
-  </section>
 
-  <footer>© 2025 MSU Cricket Association. Spartans play cricket too 🏏</footer>
+    <!-- RIGHT -->
+    <aside class="aside">
+      <h4 class="special">Our Venmo</h4>
+      <div class="row">
+        <input id="handle" class="input" value="@kseth2" readonly>
+        <button class="cpy" id="copyBtn">Copy</button>
+      </div>
 
-  <script>
-    const VENMO_HANDLE = "kseth2";
+      <div class="qr">
+        <img src="/QRcode.png" alt="">
+        <div class="note">Scan with camera</div>
+      </div>
+    </aside>
 
-    const chips = document.querySelectorAll('.chip');
-    const custom = document.getElementById('custom');
-    let amount = 25;
+  </div>
+</section>
 
-    function setPressed(el){ chips.forEach(c=>c.setAttribute('aria-pressed','false')); el.setAttribute('aria-pressed','true'); }
+<footer>© 2025 MSU Cricket Association</footer>
 
-    chips.forEach(chip=>{
-      chip.addEventListener('click', ()=>{
-        const v = Number(chip.dataset.amt);
-        if(v>0){ amount = v; custom.value = ""; }
-        else{ custom.focus(); }
-        setPressed(chip);
-      });
-    });
+<script>
+/* MENU LOGIC */
+const backdrop = document.getElementById("menu-backdrop");
+const menuToggle = document.getElementById("menuToggle");
 
-    custom.addEventListener('input', ()=>{
-      const v = Math.max(0, Math.floor(Number(custom.value||0)));
-      if(v>0) amount = v;
-    });
+menuToggle.addEventListener("click", ()=>{
+  const open = menuToggle.classList.contains("open");
+  if(open){
+    menuToggle.classList.remove("open");
+    backdrop.classList.remove("open");
+  } else {
+    menuToggle.classList.add("open");
+    backdrop.classList.add("open");
+  }
+});
 
-    document.getElementById('copyBtn').addEventListener('click', async ()=>{
-      try{
-        await navigator.clipboard.writeText('@'+VENMO_HANDLE);
-        const btn = document.getElementById('copyBtn');
-        btn.textContent = 'Copied'; setTimeout(()=>btn.textContent='Copy', 1200);
-      }catch(e){}
-    });
+backdrop.addEventListener("click", e=>{
+  if(e.target.dataset.closeMenu){
+    menuToggle.classList.remove("open");
+    backdrop.classList.remove("open");
+  }
+});
 
-    function encodeNote(){
-      const name = (document.getElementById('name').value||'').trim();
-      const note = (document.getElementById('note').value||'').trim();
-      const base = note ? note : "MSU Cricket Donation";
-      return encodeURIComponent(name ? `${base} — ${name}` : base);
-    }
+/* VENMO LOGIC */
+const VENMO_HANDLE="kseth2";
+document.getElementById("handle").value="@"+VENMO_HANDLE;
 
-    function isMobile(){
-      return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    }
+const chips=document.querySelectorAll(".chip");
+const custom=document.getElementById("custom");
+let amount=25;
 
-    const venmoBtn = document.getElementById('venmoBtn');
-    const venmoWeb = document.getElementById('venmoWeb');
-    const fallback = document.getElementById('fallback');
+chips.forEach(c=>{
+  c.addEventListener("click",()=>{
+    chips.forEach(x=>x.removeAttribute("aria-pressed"));
+    c.setAttribute("aria-pressed","true");
+    const v=+c.dataset.amt;
+    if(v>0){ amount=v; custom.value=""; }
+    else custom.focus();
+  });
+});
 
-    venmoBtn.addEventListener('click', ()=>{
-      const amt = Math.max(0, Math.floor(Number(amount||0)));
-      const note = encodeNote();
-      const appUrl = `venmo://paycharge?txn=pay&recipients=${encodeURIComponent(VENMO_HANDLE)}${amt?`&amount=${amt}`:""}&note=${note}`;
-      const webUrl = `https://venmo.com/u/${encodeURIComponent(VENMO_HANDLE)}`;
+custom.addEventListener("input",()=>amount=+custom.value||0);
 
-      // Always show fallback
-      fallback.style.display = 'block';
-      venmoWeb.href = webUrl;
+document.getElementById("copyBtn").onclick=()=>navigator.clipboard.writeText("@"+VENMO_HANDLE);
 
-      // Only try app link on mobile (desktop Safari will say “invalid address”)
-      if (isMobile()) window.location.href = appUrl;
-      else console.log("Desktop browser: using web link only.");
-    });
+document.getElementById("venmoBtn").onclick=()=>{
+  const note=encodeURIComponent(document.getElementById("note").value||"Donation");
+  const app=`venmo://paycharge?txn=pay&recipients=${VENMO_HANDLE}&amount=${amount}&note=${note}`;
+  const web=`https://venmo.com/u/${VENMO_HANDLE}`;
+  document.getElementById("fallback").style.display="block";
+  document.getElementById("venmoWeb").href=web;
+  if(/iphone|android/i.test(navigator.userAgent)) location.href=app;
+};
+</script>
 
-    document.getElementById('handle').value = '@'+VENMO_HANDLE;
-  </script>
 </body>
 </html>

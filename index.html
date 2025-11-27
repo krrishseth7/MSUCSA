@@ -60,7 +60,7 @@
             text-align: center;
             font-size: 30px;
             margin-top: 30px;
-            margin-bottom: 60px; /* Add space before footer */
+            margin-bottom: 60px;
             padding: 20px 30px;
             width: fit-content;
             position: relative;
@@ -112,34 +112,35 @@
             border-top: 1px solid #333;
             clear: both;
         }
+
         .button {
-    display: flex;
-    justify-content: center; /* centers buttons horizontally */
-    gap: 20px;               /* space between buttons */
-    margin: 40px 0;          /* top & bottom spacing */
-}
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 40px 0;
+        }
 
-.button a {
-    display: inline-block;
-    min-width: 170px;
-    height: 45px;
-    line-height: 45px;       /* vertically center text */
-    border-radius: 6px;
-    background-color: rgb(9, 255, 202);
-    color: #111;
-    font-size: 18px;
-    text-align: center;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-}
+        .button a {
+            display: inline-block;
+            min-width: 170px;
+            height: 45px;
+            line-height: 45px;
+            border-radius: 6px;
+            background-color: rgb(9, 255, 202);
+            color: #111;
+            font-size: 18px;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
 
-.button a:hover {
-    background-color: #00d4b3; /* subtle hover effect */
-}
-
+        .button a:hover {
+            background-color: #00d4b3;
+        }
     </style>
 </head>
 <body>
+
     <div class="header">
         <div class="logo-section">
             <img src="./Symbol.png" alt="MSUCSA Logo">
@@ -151,7 +152,6 @@
             <div></div>
         </div>
     </div>
-    
 
     <h3 class="quote special-font" id="typing-text"></h3>
 
@@ -164,6 +164,7 @@
         <a href="./Pages/PhotosArchieve.html"> Photos Archieve</a>
         <a href="./Pages/contactUs.html"> Contact Us</a>
     </div>
+
     <div class="button">
         <a href="./Pages/Playercard.html"> 🏏Join Our Squad </a>
         <a href="./Pages/Schedule.html"> Schedule! </a>
@@ -172,7 +173,7 @@
     <footer class="footer">
         <p>© 2025 MSU Cricket Association. All rights reserved.</p>
         <p>Spartans play cricket too 🏏</p>
-        <p> Go Green! Go White!</p>
+        <p>Go Green! Go White!</p>
     </footer>
 
     <script>
@@ -194,7 +195,19 @@
             const menu = document.getElementById("mobile-menu");
             menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
         }
+
+        /* 🔥 Close menu when clicking outside */
+        document.addEventListener("click", function (e) {
+            const menu = document.getElementById("mobile-menu");
+            const icon = document.querySelector(".menu-icon");
+
+            if (menu.style.display === "flex" &&
+                !menu.contains(e.target) &&
+                !icon.contains(e.target)) {
+                menu.style.display = "none";
+            }
+        });
     </script>
-    
+
 </body>
 </html>
