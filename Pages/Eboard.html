@@ -4,747 +4,256 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>MSUCSA | Executive Board</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg: #000000;
-      --fg: #f5f5f7;
-      --muted: #a6a6b3;
-      --glass: rgba(8, 8, 12, 0.94);
-      --stroke: rgba(255,255,255,0.14);
-      --radius-card: 18px;
+      --bg:#000;
+      --fg:#f5f5f7;
+      --muted:#b7b7c0;
+      --panel:rgba(20,20,20,0.65);
+      --stroke:rgba(255,255,255,0.12);
+      --accent:#00ffc6;
+      --radius:20px;
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    *{margin:0;padding:0;box-sizing:border-box;}
+
+    body{
+      background:var(--bg);
+      color:var(--fg);
+      font-family:"Poppins",sans-serif;
+      padding:40px 20px;
+      display:flex;
+      justify-content:center;
+      backdrop-filter:blur(4px);
     }
 
-    body {
-      min-height: 100vh;
-      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--bg);
-      color: var(--fg);
-      display: flex;
-      align-items: stretch;
-      justify-content: center;
-      padding: 24px 12px 40px;
-      position: relative;
-      overflow-x: hidden;  /* ✅ keep side glitches hidden */
-    overflow-y: auto; 
+    .container{
+      width:100%;
+      max-width:1100px;
     }
 
-    body::before {
-      content: "";
-      position: fixed;
-      inset: -60px;
-      pointer-events: none;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
-      background-size: 80px 80px;
-      opacity: 0.18;
+    header{
+      text-align:center;
+      margin-bottom:40px;
     }
 
-    .shell {
-      width: 100%;
-      max-width: 1080px;
-      position: relative;
-      z-index: 1;
+    header h1{
+      font-size:2.5rem;
+      font-weight:800;
+      letter-spacing:.07em;
     }
 
-    .shell-inner {
-      position: relative;
-      border-radius: 26px;
-      border: 1px solid var(--stroke);
-      background:
-        radial-gradient(circle at top, rgba(255,255,255,0.12), transparent 55%),
-        rgba(5,5,10,0.96);
-      box-shadow:
-        0 26px 90px -40px rgba(0,0,0,0.95),
-        0 0 60px -40px rgba(255,255,255,0.4);
-      padding: 24px 20px 30px;
-      backdrop-filter: blur(18px);
-      overflow: hidden;
+    header p{
+      margin-top:8px;
+      color:var(--muted);
+      font-size:1.05rem;
     }
 
-    /* Police light wash (only visible when chaos-on class is set) */
-    .shell-inner::before {
-      content: "";
-      position: absolute;
-      inset: -10px;
-      background:
-        linear-gradient(125deg,
-          rgba(255,40,40,0.4),
-          transparent 35%,
-          rgba(40,120,255,0.45),
-          transparent 70%);
-      mix-blend-mode: screen;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.2s ease;
-      z-index: -1;
+    .line{
+      width:80px;
+      height:4px;
+      background:var(--accent);
+      margin:14px auto 0;
+      border-radius:4px;
     }
 
-    body.chaos-on .shell-inner::before {
-      opacity: 1;
-      animation: police-wash 0.7s linear infinite alternate;
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:28px;
+      margin-top:30px;
     }
 
-    @keyframes police-wash {
-      0%   { transform: translateX(-20px); }
-      100% { transform: translateX(20px); }
+    /* Cards */
+    .card{
+      background:var(--panel);
+      border:1px solid var(--stroke);
+      border-radius:var(--radius);
+      padding:22px;
+      text-align:center;
+      backdrop-filter:blur(16px);
+      transition:transform .25s ease, box-shadow .25s ease, border-color .25s;
     }
 
-    /* ===== Header ===== */
-
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
-
-    .logo-mark {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .badge {
-      width: 36px;
-      height: 36px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.7);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.82rem;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      background:
-        radial-gradient(circle at 30% 0%, #ffffff, #000000);
-      color: #000;
-      box-shadow: 0 0 26px rgba(255,255,255,0.9);
-    }
-
-    .brand-lines {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .brand-lines span:first-child {
-      font-size: 0.75rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .brand-lines span:last-child {
-      font-size: 1.3rem;
-      font-weight: 800;
-      letter-spacing: 0.16em;
-    }
-
-    .header-right {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 6px;
-    }
-
-    .tagline {
-      font-size: 0.9rem;
-      color: var(--muted);
-      text-align: right;
-    }
-
-    .pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      justify-content: flex-end;
-    }
-
-    .pill {
-      font-size: 0.78rem;
-      padding: 5px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.18);
-      background: rgba(0,0,0,0.8);
-      color: var(--muted);
-      white-space: nowrap;
-    }
-
-    /* ===== Controls / Chaos Toggle ===== */
-
-    .controls-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin: 4px 2px 20px;
-      flex-wrap: wrap;
-      border-top: 1px solid rgba(255,255,255,0.16);
-      padding-top: 10px;
-    }
-
-    .controls-bar span {
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
-
-    .toggle-wrap {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .toggle-label {
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      color: var(--muted);
-      cursor: pointer;
-    }
-
-    .toggle {
-      position: relative;
-      width: 40px;
-      height: 20px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.4);
-      background: rgba(0,0,0,0.9);
-      cursor: pointer;
-      overflow: hidden;
-    }
-
-    .toggle-knob {
-      position: absolute;
-      top: 1px;
-      left: 1px;
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      background: #ffffff;
-      box-shadow: 0 0 12px rgba(255,255,255,0.7);
-      transition: transform 0.18s ease;
-    }
-
-    #chaos:checked + .controls-bar .toggle-knob {
-      transform: translateX(18px);
-    }
-
-    /* ===== Board ===== */
-
-    .board-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 22px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .member-card {
-      position: relative;
-      display: grid;
-      grid-template-columns: minmax(0, 1.3fr) auto;
-      gap: 18px;
-      padding: 18px 18px 18px 20px;
-      border-radius: var(--radius-card);
-      background: var(--glass);
-      border: 1px solid var(--stroke);
-      box-shadow:
-        0 18px 50px -28px rgba(0,0,0,0.95),
-        0 0 24px -18px rgba(255,255,255,0.4);
-      overflow: hidden;
-      transform-origin: center;
-      transition:
-        transform 0.2s ease,
-        box-shadow 0.25s ease,
-        border-color 0.2s ease,
-        background 0.25s ease;
-    }
-
-    .member-card:hover {
-      transform: translateY(-4px);
-      box-shadow:
-        0 22px 70px -34px rgba(0,0,0,1),
-        0 0 40px -18px rgba(255,255,255,0.6);
-      border-color: rgba(255,255,255,0.4);
-      background:
-        radial-gradient(circle at top left, rgba(255,255,255,0.16), transparent 55%),
-        var(--glass);
-    }
-
-    .member-main {
-      position: relative;
-      z-index: 1;
-    }
-
-    .name {
-      font-size: 1.35rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .role {
-      margin-top: 6px;
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      color: var(--muted);
-    }
-
-    .micro-line {
-      margin-top: 10px;
-      width: 70px;
-      height: 2px;
-      background: linear-gradient(to right, rgba(255,255,255,0.8), transparent);
-    }
-
-    .blurb {
-      margin-top: 10px;
-      font-size: 0.86rem;
-      color: var(--muted);
-      max-width: 440px;
-      line-height: 1.5;
+    .card:hover{
+      transform:translateY(-6px);
+      border-color:rgba(255,255,255,0.25);
+      box-shadow:0 18px 40px rgba(0,0,0,.5);
     }
 
-    .tag-row {
-      margin-top: 10px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 7px;
+    /* Neon Rotating Ring */
+    .avatar-wrapper{
+      position:relative;
+      width:140px;
+      height:140px;
+      margin:0 auto 18px;
     }
 
-    .tag {
-      font-size: 0.74rem;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      padding: 4px 9px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.5);
-      color: #f0f0f0;
-      background: rgba(0,0,0,0.8);
+    .neon-ring{
+      position:absolute;
+      inset:-6px;
+      border-radius:50%;
+      background:conic-gradient(
+        from 0deg,
+        var(--accent),
+        transparent 40%,
+        var(--accent)
+      );
+      animation:spin 4s linear infinite;
+      filter:drop-shadow(0 0 8px var(--accent));
+      opacity:0.8;
     }
 
-    .avatar-shell {
-      position: relative;
-      align-self: center;
-      justify-self: end;
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      padding: 3px;
-      background:
-        radial-gradient(circle at 30% 0%, #ffffff, #d2d2d2);
-      box-shadow:
-        0 0 24px rgba(255,255,255,0.8),
-        0 18px 45px -28px rgba(0,0,0,1);
-      overflow: visible;
+    @keyframes spin{
+      from { transform:rotate(0deg); }
+      to   { transform:rotate(360deg); }
     }
 
-    .avatar-inner {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      overflow: hidden;
-      background: #000;
-      border: 2px solid rgba(0,0,0,0.9);
+    /* Avatar inside ring */
+    .avatar{
+      position:relative;
+      width:100%;
+      height:100%;
+      border-radius:50%;
+      overflow:hidden;
+      border:2px solid rgba(255,255,255,.08);
+      z-index:2;
     }
 
-    .avatar-inner img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transform: translateY(0px);
-      transition: transform 0.4s ease;
+    .avatar img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
     }
 
-    .member-card:hover .avatar-inner img {
-      transform: translateY(-4px) scale(1.03);
+    .name{
+      font-size:1.28rem;
+      font-weight:600;
+      letter-spacing:.03em;
     }
 
-    /* Extra tilt + flame emoji for chaos, driven by body.chaos-on */
-
-    body.chaos-on .member-card:nth-child(1) {
-      transform: rotate(-1.5deg);
-    }
-    body.chaos-on .member-card:nth-child(2) {
-      transform: rotate(1deg);
-    }
-    body.chaos-on .member-card:nth-child(3) {
-      transform: rotate(-2deg);
-    }
-
-    body.chaos-on .member-card .name::after {
-      content: " 🔥";
-      font-size: 1rem;
-    }
-
-    /* ===== Saad Overlay (Captain Police Entrance) ===== */
-
-    .saad-overlay {
-      position: absolute;
-      right: 10px;
-      bottom: 90px;
-      z-index: 5;
-      display: flex;
-      align-items: flex-end;
-      gap: 14px;
-      opacity: 0;
-      transform: translateX(60px);
-      pointer-events: none; /* so it doesn't block clicks */
-      transition: opacity 0.35s ease, transform 0.35s ease;
-    }
-
-    body.chaos-on .saad-overlay {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    .saad-police-bar {
-      position: absolute;
-      right: -20px;
-      bottom: 90px;
-      width: 220px;
-      height: 14px;
-      border-radius: 999px;
-      background:
-        linear-gradient(90deg,
-          #ff2b4a 0%,
-          #ff2b4a 33%,
-          #111 50%,
-          #2b6bff 67%,
-          #2b6bff 100%);
-      box-shadow: 0 0 28px rgba(255,80,80,0.9),
-                  0 0 28px rgba(70,130,255,0.9);
-      opacity: 0;
-      transform: translateY(10px);
-      transition: opacity 0.3s ease, transform 0.3s ease;
-    }
-
-    body.chaos-on .saad-police-bar {
-      opacity: 1;
-      transform: translateY(0);
-      animation: siren-bar 0.5s linear infinite alternate;
-    }
-
-    @keyframes siren-bar {
-      0% { filter: drop-shadow(0 0 14px rgba(255,50,50,0.9)); }
-      100% { filter: drop-shadow(0 0 14px rgba(50,120,255,0.9)); }
-    }
-
-    .saad-card {
-      position: relative;
-      padding: 10px 14px 10px 10px;
-      border-radius: 18px;
-      background: rgba(5,5,10,0.96);
-      border: 1px solid rgba(255,255,255,0.3);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      box-shadow:
-        0 20px 60px -32px rgba(0,0,0,1),
-        0 0 35px -16px rgba(255,255,255,0.7);
-    }
-
-    .saad-avatar {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      padding: 2px;
-      background:
-        conic-gradient(from 180deg,
-          #ff3258,
-          #2b7bff,
-          #ff3258,
-          #2b7bff,
-          #ff3258);
-      animation: police-ring 0.5s linear infinite;
-    }
-
-    @keyframes police-ring {
-      from { transform: rotate(0deg); }
-      to   { transform: rotate(360deg); }
-    }
-
-    .saad-avatar-inner {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      overflow: hidden;
-      border: 2px solid #000;
-      background: #111;
-    }
-
-    .saad-avatar-inner img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
+    .role{
+      margin-top:4px;
+      color:var(--muted);
+      font-size:.88rem;
+      text-transform:uppercase;
+      letter-spacing:.15em;
     }
 
-    .saad-text {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
+    footer{
+      text-align:center;
+      margin-top:50px;
+      font-size:.85rem;
+      color:var(--muted);
     }
 
-    .saad-name {
-      font-size: 0.95rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .saad-role {
-      font-size: 0.8rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .saad-bubble {
-      margin-top: 4px;
-      font-size: 0.82rem;
-      padding: 6px 8px;
-      border-radius: 12px;
-      background: #111;
-      color: #f5f5f5;
-      border: 1px solid rgba(255,255,255,0.4);
-      position: relative;
-    }
-
-    .saad-bubble::after {
-      content: "";
-      position: absolute;
-      left: -6px;
-      top: 50%;
-      transform: translateY(-50%);
-      border-width: 6px;
-      border-style: solid;
-      border-color: transparent #111 transparent transparent;
-    }
-
-    body.chaos-on .saad-bubble {
-      animation: bubble-pop 0.45s ease-out 0.15s both;
-    }
-
-    @keyframes bubble-pop {
-      0%   { transform: scale(0.7); opacity: 0; }
-      70%  { transform: scale(1.05); opacity: 1; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-
-    /* ===== Footer ===== */
-
-    footer {
-      margin-top: 24px;
-      text-align: center;
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
-
-    footer span {
-      font-weight: 600;
-      color: var(--fg);
-    }
-
-    /* ===== Responsive ===== */
-
-    @media (max-width: 780px) {
-      .shell-inner {
-        padding: 20px 16px 24px;
-      }
-
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .header-right {
-        align-items: flex-start;
-      }
-
-      .member-card {
-        grid-template-columns: minmax(0, 1fr);
-      }
-
-      .avatar-shell {
-        justify-self: center;
-        margin-top: 6px;
-      }
-
-      .saad-overlay {
-        right: 4px;
-        bottom: 12px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .name { font-size: 1.1rem; }
-      .avatar-shell { width: 130px; height: 130px; }
-      .saad-card { padding: 8px 10px; }
-      .saad-avatar { width: 56px; height: 56px; }
-    }
   </style>
 </head>
+
 <body>
-  <div class="shell">
-    <div class="shell-inner">
-      <header>
-        <div class="logo-mark">
-          <div class="badge">MSU</div>
-          <div class="brand-lines">
-            <span>Cricket Student Association</span>
-            <span>E-BOARD</span>
-          </div>
-        </div>
-        <div class="header-right">
-          <p class="tagline">Black screen, bright heads. This is the team behind MSUCSA.</p>
-          <div class="pill-row">
-            <div class="pill">2025 Season</div>
-            <div class="pill">Student-led</div>
-            <div class="pill">Cricket • Community • Competition</div>
-          </div>
-        </div>
-      </header>
+  <div class="container">
 
-      <!-- Chaos toggle -->
-      <input type="checkbox" id="chaos" hidden>
-      <div class="controls-bar">
-        <span>Hover the cards. Flip Chaos Mode to call in the captain.</span>
-        <div class="toggle-wrap">
-          <label class="toggle-label" for="chaos">Chaos Mode</label>
-          <label class="toggle" for="chaos">
-            <div class="toggle-knob"></div>
-          </label>
+    <header>
+      <h1>MSU Cricket Student Association</h1>
+      <p>Executive Board • 2025 Season</p>
+      <div class="line"></div>
+    </header>
+
+    <div class="grid">
+
+      <!-- President -->
+      <div class="card">
+        <div class="avatar-wrapper">
+          <div class="neon-ring"></div>
+          <div class="avatar">
+            <img src="/Photos/Jaju.jpeg" alt="Aryan Jaju">
+          </div>
         </div>
+        <div class="name">Aryan Jaju</div>
+        <div class="role">President</div>
       </div>
 
-      <!-- E-Board Cards -->
-      <section class="board-grid">
-        <article class="member-card">
-          <div class="member-main">
-            <h2 class="name">Aryan Jaju</h2>
-            <p class="role">President</p>
-            <div class="micro-line"></div>
-            <p class="blurb">
-              Aryan is the one setting fixtures, talking to teams, and keeping MSUCSA moving like a proper squad — on campus and across leagues.
-            </p>
-            <div class="tag-row">
-              <span class="tag">Strategy</span>
-              <span class="tag">Leadership</span>
-              <span class="tag">Culture</span>
-            </div>
-          </div>
-          <div class="avatar-shell">
-            <div class="avatar-inner">
-              <img src="/Photos/Jaju.jpeg" alt="Aryan Jaju - President">
-            </div>
-          </div>
-        </article>
-
-        <article class="member-card">
-          <div class="member-main">
-            <h2 class="name">Tanush</h2>
-            <p class="role">Vice President</p>
-            <div class="micro-line"></div>
-            <p class="blurb">
-              From net sessions and game days to last-minute player chaos, Tanush is the operations brain keeping everything from falling apart.
-            </p>
-            <div class="tag-row">
-              <span class="tag">Operations</span>
-              <span class="tag">Logistics</span>
-              <span class="tag">Support</span>
-            </div>
-          </div>
-          <div class="avatar-shell">
-            <div class="avatar-inner">
-              <img src="/Photos/Tanush.jpeg" alt="Tanush - Vice President">
-            </div>
-          </div>
-        </article>
-
-        <article class="member-card">
-          <div class="member-main">
-            <h2 class="name">Krrish Seth</h2>
-            <p class="role">Website Developer</p>
-            <div class="micro-line"></div>
-            <p class="blurb">
-              Krrish turns scoreboard screenshots and random ideas into actual pages — building MSUCSA’s digital presence and keeping the site sharp.
-            </p>
-            <div class="tag-row">
-              <span class="tag">Web</span>
-              <span class="tag">Design</span>
-              <span class="tag">Brand</span>
-            </div>
-          </div>
-          <div class="avatar-shell">
-            <div class="avatar-inner">
-              <img src="/Photos/Krrish.jpg" alt="Krrish Seth - Website Developer">
-            </div>
-          </div>
-        </article>
-      </section>
-
-      <!-- Saad Captain Overlay -->
-      <div class="saad-overlay">
-        <div class="saad-police-bar"></div>
-        <div class="saad-card">
-          <div class="saad-avatar">
-            <div class="saad-avatar-inner">
-              <!-- update path to Saad's actual photo -->
-              <img src="/Photos/Saad.jpeg"alt="Saad - Captain">
-            </div>
-          </div>
-          <div class="saad-text">
-            <div class="saad-name">Saad</div>
-            <div class="saad-role">Captain</div>
-            <div class="saad-bubble">You called me?</div>
+      <!-- Vice President -->
+      <div class="card">
+        <div class="avatar-wrapper">
+          <div class="neon-ring"></div>
+          <div class="avatar">
+            <img src="/Photos/Tanush.jpeg" alt="Tanush Zutshi">
           </div>
         </div>
+        <div class="name">Tanush Zutshi</div>
+        <div class="role">Vice President</div>
       </div>
 
-      <footer>
-        © <span>MSU Cricket Student Association</span> · Executive Board · Chaos Mode enforced by the captain.
-      </footer>
+      <!-- Seth -->
+      <div class="card">
+        <div class="avatar-wrapper">
+          <div class="neon-ring"></div>
+          <div class="avatar">
+            <img src="/Photos/Krrish.jpg" alt="Krrish Seth">
+          </div>
+        </div>
+        <div class="name">Krrish Seth</div>
+        <div class="role">Events</div>
+      </div>
+
+      <!-- Saad -->
+      <div class="card">
+        <div class="avatar-wrapper">
+          <div class="neon-ring"></div>
+          <div class="avatar">
+            <img src="/Photos/Saad.jpeg" alt="Saad Mahmood">
+          </div>
+        </div>
+        <div class="name">Saad</div>
+        <div class="role">Secretary</div>
+      </div>
+
+      <!-- Sahil -->
+      <div class="card">
+        <div class="avatar-wrapper">
+          <div class="neon-ring"></div>
+          <div class="avatar">
+            <img src="/Photos/Sahil.jpeg" alt="Sahil Sharma">
+          </div>
+        </div>
+        <div class="name">Sahil</div>
+        <div class="role">Planning & Logistics</div>
+      </div>
+
+      <!-- Rose -->
+      <div class="card">
+        <div class="avatar-wrapper">
+          <div class="neon-ring"></div>
+          <div class="avatar">
+            <img src="/Photos/Rose.jpeg" alt="Aryan Rose">
+          </div>
+        </div>
+        <div class="name">Rose</div>
+        <div class="role">Social Media</div>
+      </div>
+
+      <!-- Arhaan -->
+      <div class="card">
+        <div class="avatar-wrapper">
+          <div class="neon-ring"></div>
+          <div class="avatar">
+            <img src="/Photos/Arhaan.jpg" alt="Arhaan Parikh">
+          </div>
+        </div>
+        <div class="name">Arhaan</div>
+        <div class="role">Treasurer</div>
+      </div>
+
     </div>
+
+    <footer>
+      © 2025 MSU Cricket Student Association • All Rights Reserved.
+    </footer>
+
   </div>
-
-  <!-- Police siren audio (update src to your actual file) -->
-  <audio id="chaos-audio" src="/Pages/Audio/police-siren-sound-effect-317645.mp3" preload="auto" loop></audio>
-
-  <script>
-    const chaosCheckbox = document.getElementById('chaos');
-    const chaosAudio = document.getElementById('chaos-audio');
-
-    if (chaosCheckbox && chaosAudio) {
-      chaosCheckbox.addEventListener('change', async () => {
-        // Toggle visual chaos class on body
-        document.body.classList.toggle('chaos-on', chaosCheckbox.checked);
-
-        try {
-          if (chaosCheckbox.checked) {
-            chaosAudio.currentTime = 0;
-            await chaosAudio.play();
-          } else {
-            chaosAudio.pause();
-          }
-        } catch (err) {
-          console.warn('Audio play may be blocked by browser autoplay rules:', err);
-        }
-      });
-    }
-  </script>
 </body>
 </html>
